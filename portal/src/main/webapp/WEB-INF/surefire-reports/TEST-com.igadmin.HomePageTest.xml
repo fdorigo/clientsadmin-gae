@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="1" time="1.152" errors="0" skipped="0" tests="1" name="com.igadmin.HomePageTest">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries"/>
+    <property name="java.vm.version" value="20.8-b03-424"/>
+    <property name="awt.nativeDoubleBuffering" value="true"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="mrj.build" value="11M3720"/>
+    <property name="java.vm.vendor" value="Apple Inc."/>
+    <property name="java.vendor.url" value="http://www.apple.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/fdorigo/personal/igadmin-gae/portal"/>
+    <property name="java.runtime.version" value="1.6.0_33-b03-424-11M3720"/>
+    <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment"/>
+    <property name="basedir" value="/Users/fdorigo/personal/igadmin-gae/portal"/>
+    <property name="java.endorsed.dirs" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="surefire.real.class.path" value="/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/surefire/surefirebooter7793367827309378424.jar"/>
+    <property name="java.io.tmpdir" value="/var/folders/_5/ycgb2z_16qqb818r8df5fkp00000gn/T/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.jnu.encoding" value="MacRoman"/>
+    <property name="java.library.path" value=".:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="surefire.test.class.path" value="/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/test-classes:/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/classes:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-core/1.5.7/wicket-core-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-util/1.5.7/wicket-util-1.5.7.jar:/Users/fdorigo/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-request/1.5.7/wicket-request-1.5.7.jar:/Users/fdorigo/.m2/repository/org/wicketstuff/wicketstuff-gae-initializer/1.5.7/wicketstuff-gae-initializer-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-extensions/1.5.7/wicket-extensions-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-auth-roles/1.5.7/wicket-auth-roles-1.5.7.jar:/Users/fdorigo/.m2/repository/org/slf4j/slf4j-log4j12/1.6.2/slf4j-log4j12-1.6.2.jar:/Users/fdorigo/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/Users/fdorigo/.m2/repository/com/google/guava/guava/12.0.1/guava-12.0.1.jar:/Users/fdorigo/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/fdorigo/.m2/repository/com/vercer/engine/persist/twig-persist/1.0.4/twig-persist-1.0.4.jar:/Users/fdorigo/.m2/repository/com/google/collections/google-collections/1.0/google-collections-1.0.jar:/Users/fdorigo/.m2/repository/com/google/appengine/appengine-api-labs/1.3.6/appengine-api-labs-1.3.6.jar:/Users/fdorigo/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/Users/fdorigo/.m2/repository/com/google/inject/guice/2.0/guice-2.0.jar:/Users/fdorigo/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/fdorigo/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/Users/fdorigo/.m2/repository/org/eclipse/jetty/aggregate/jetty-all-server/7.5.0.v20110901/jetty-all-server-7.5.0.v20110901.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar:/Users/fdorigo/.m2/repository/javax/mail/mail/1.4.1/mail-1.4.1.jar:/Users/fdorigo/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-jaspic_1.0_spec/1.0/geronimo-jaspic_1.0_spec-1.0.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar:/Users/fdorigo/.m2/repository/asm/asm-commons/3.1/asm-commons-3.1.jar:/Users/fdorigo/.m2/repository/asm/asm-tree/3.1/asm-tree-3.1.jar:/Users/fdorigo/.m2/repository/asm/asm/3.1/asm-3.1.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.7.4"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/fdorigo"/>
+    <property name="user.timezone" value="America/Denver"/>
+    <property name="java.awt.printerjob" value="apple.awt.CPrinterJob"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="file.encoding" value="MacRoman"/>
+    <property name="user.name" value="fdorigo"/>
+    <property name="java.class.path" value="/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/test-classes:/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/classes:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-core/1.5.7/wicket-core-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-util/1.5.7/wicket-util-1.5.7.jar:/Users/fdorigo/.m2/repository/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-request/1.5.7/wicket-request-1.5.7.jar:/Users/fdorigo/.m2/repository/org/wicketstuff/wicketstuff-gae-initializer/1.5.7/wicketstuff-gae-initializer-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-extensions/1.5.7/wicket-extensions-1.5.7.jar:/Users/fdorigo/.m2/repository/org/apache/wicket/wicket-auth-roles/1.5.7/wicket-auth-roles-1.5.7.jar:/Users/fdorigo/.m2/repository/org/slf4j/slf4j-log4j12/1.6.2/slf4j-log4j12-1.6.2.jar:/Users/fdorigo/.m2/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar:/Users/fdorigo/.m2/repository/com/google/guava/guava/12.0.1/guava-12.0.1.jar:/Users/fdorigo/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/fdorigo/.m2/repository/com/vercer/engine/persist/twig-persist/1.0.4/twig-persist-1.0.4.jar:/Users/fdorigo/.m2/repository/com/google/collections/google-collections/1.0/google-collections-1.0.jar:/Users/fdorigo/.m2/repository/com/google/appengine/appengine-api-labs/1.3.6/appengine-api-labs-1.3.6.jar:/Users/fdorigo/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/Users/fdorigo/.m2/repository/com/google/inject/guice/2.0/guice-2.0.jar:/Users/fdorigo/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/fdorigo/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/Users/fdorigo/.m2/repository/org/eclipse/jetty/aggregate/jetty-all-server/7.5.0.v20110901/jetty-all-server-7.5.0.v20110901.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.1.1/geronimo-jta_1.1_spec-1.1.1.jar:/Users/fdorigo/.m2/repository/javax/mail/mail/1.4.1/mail-1.4.1.jar:/Users/fdorigo/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-jaspic_1.0_spec/1.0/geronimo-jaspic_1.0_spec-1.0.jar:/Users/fdorigo/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar:/Users/fdorigo/.m2/repository/asm/asm-commons/3.1/asm-commons-3.1.jar:/Users/fdorigo/.m2/repository/asm/asm-tree/3.1/asm-tree-3.1.jar:/Users/fdorigo/.m2/repository/asm/asm/3.1/asm-3.1.jar:"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"/>
+    <property name="sun.java.command" value="/Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/surefire/surefirebooter7793367827309378424.jar /Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/surefire/surefire8211676105607123118tmp /Users/fdorigo/personal/igadmin-gae/portal/src/main/webapp/WEB-INF/surefire/surefire1758104854725168502tmp"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="apple.awt.CToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_33"/>
+    <property name="java.ext.dirs" value="/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext"/>
+    <property name="sun.boot.class.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar"/>
+    <property name="java.vendor" value="Apple Inc."/>
+    <property name="localRepository" value="/Users/fdorigo/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.apple.com/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="mrj.version" value="1070.1.6.0_33-424"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="1.087" classname="com.igadmin.HomePageTest" name="homepageRendersSuccessfully">
+    <failure message="classes not the same, expected &apos;class com.igadmin.pages.HomePage&apos;, current &apos;class com.igadmin.auth.LoginPage&apos;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: classes not the same, expected &apos;class com.igadmin.pages.HomePage&apos;, current &apos;class com.igadmin.auth.LoginPage&apos;
+	at org.apache.wicket.util.tester.WicketTester.assertResult(WicketTester.java:566)
+	at org.apache.wicket.util.tester.WicketTester.assertRenderedPage(WicketTester.java:476)
+	at com.igadmin.HomePageTest.homepageRendersSuccessfully(HomePageTest.java:25)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:76)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:35)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:115)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:97)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.booter.ProviderFactory$ClassLoaderProxy.invoke(ProviderFactory.java:103)
+	at $Proxy0.invoke(Unknown Source)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:150)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcess(SurefireStarter.java:91)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:69)
+</failure>
+    <system-out>@HL
+@HL-------------------------------------------------------
+@HL T E S T S
+@HL-------------------------------------------------------
+@SLRunning com.igadmin.HomePageTest
+TRACE WicketApplication - New Wicket Application
+DEBUG WicketApplication - Init Wicket Application
+INFO  Application - [WicketTesterApplication-6d02128a-e7a3-410b-ad12-7d40aefdc588] init: Wicket core library initializer
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IBehaviorListener, method=public abstract void org.apache.wicket.behavior.IBehaviorListener.onRequest()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IBehaviorListener, method=public abstract void org.apache.wicket.behavior.IBehaviorListener.onRequest()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IFormSubmitListener, method=public abstract void org.apache.wicket.markup.html.form.IFormSubmitListener.onFormSubmitted()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IFormSubmitListener, method=public abstract void org.apache.wicket.markup.html.form.IFormSubmitListener.onFormSubmitted()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=ILinkListener, method=public abstract void org.apache.wicket.markup.html.link.ILinkListener.onLinkClicked()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=ILinkListener, method=public abstract void org.apache.wicket.markup.html.link.ILinkListener.onLinkClicked()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IOnChangeListener, method=public abstract void org.apache.wicket.markup.html.form.IOnChangeListener.onSelectionChanged()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IOnChangeListener, method=public abstract void org.apache.wicket.markup.html.form.IOnChangeListener.onSelectionChanged()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IRedirectListener, method=public abstract void org.apache.wicket.IRedirectListener.onRedirect()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IRedirectListener, method=public abstract void org.apache.wicket.IRedirectListener.onRedirect()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IResourceListener, method=public abstract void org.apache.wicket.IResourceListener.onResourceRequested()]
+INFO  RequestListenerInterface - registered listener interface [RequestListenerInterface name=IResourceListener, method=public abstract void org.apache.wicket.IResourceListener.onResourceRequested()]
+INFO  Application - [WicketTesterApplication-6d02128a-e7a3-410b-ad12-7d40aefdc588] init: Wicket extensions initializer
+INFO  Application - [WicketTesterApplication-6d02128a-e7a3-410b-ad12-7d40aefdc588] init: org.wicketstuff.gae.GaeInitializer@6126f827
+DEBUG WicketApplication - Restart at sign in...
+</system-out>
+    <system-err>log4j:WARN Continuable parsing error 3 and column 69
+log4j:WARN Document root element &quot;log4j:configuration&quot;, must match DOCTYPE root &quot;null&quot;.
+log4j:WARN Continuable parsing error 3 and column 69
+log4j:WARN Document is invalid: no grammar found.
+</system-err>
+  </testcase>
+</testsuite>
