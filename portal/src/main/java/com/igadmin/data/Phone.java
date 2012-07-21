@@ -2,16 +2,28 @@ package com.igadmin.data;
 
 import java.io.Serializable;
 
+import javax.persistence.Id;
+
 import org.apache.log4j.Logger;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Unindexed;
+
+@Entity
+@Unindexed
 public class Phone implements Serializable
 {
 	private static final long serialVersionUID = -7227906431599297832L;
 	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(Phone.class);
 	
+	@Id
 	private String number;
 	private String extension;
+
+	public Phone()
+	{
+	}
 
 	public Phone(String number)
 	{

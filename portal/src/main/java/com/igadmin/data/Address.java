@@ -2,6 +2,13 @@ package com.igadmin.data;
 
 import java.io.Serializable;
 
+import javax.persistence.Id;
+
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Unindexed;
+
+@Entity
+@Unindexed
 public class Address implements Serializable
 {
 	private static final long serialVersionUID = 2927546384466348849L;
@@ -14,6 +21,18 @@ public class Address implements Serializable
 	private String city;
 	private String state;
 	private String zip;
+	
+	@Id
+	private Long id;
+    
+	public Long getId()
+	{
+		return id;
+	}
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
 
 	public Address() 
 	{

@@ -1,5 +1,6 @@
 package com.igadmin.panels;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,15 +16,18 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
+import com.igadmin.data.DAO;
+import com.igadmin.data.Location;
+import com.igadmin.data.Phone;
 import com.igadmin.form.FormUtils;
 import com.igadmin.form.SelectOption;
 
 public class AddLocation extends Panel
 {
-	private static final long serialVersionUID = 3695907416548135080L;
-	private static final Logger LOG = Logger.getLogger(AddLocation.class);
+	private static final long	serialVersionUID	= 3695907416548135080L;
+	private static final Logger	LOG					= Logger.getLogger(AddLocation.class);
 
-	private SelectOption selectedState;
+	private SelectOption		selectedState;
 
 	public SelectOption getSelectedState()
 	{
@@ -64,8 +68,9 @@ public class AddLocation extends Panel
 
 		final List<SelectOption> listOfStates = FormUtils.initStateOptionList();
 
-		final IModel<List<SelectOption>> stateChoiceModel = new AbstractReadOnlyModel<List<SelectOption>>() {
-			private static final long serialVersionUID = 1L;
+		final IModel<List<SelectOption>> stateChoiceModel = new AbstractReadOnlyModel<List<SelectOption>>()
+		{
+			private static final long	serialVersionUID	= 1L;
 
 			@Override
 			public List<SelectOption> getObject()
@@ -74,21 +79,47 @@ public class AddLocation extends Panel
 			}
 		};
 
-		Form<Void> form = new Form<Void>("form") {
-			private static final long serialVersionUID = 709544921769281327L;
+		Form<Void> form = new Form<Void>("form")
+		{
+			private static final long	serialVersionUID	= 709544921769281327L;
 
 			@Override
 			protected void onSubmit()
 			{
 				LOG.debug("AddLocation: " + modelName.getObject());
 
-//				Address locAddress = new Address(modelStreet.getObject(), modelCity.getObject(), selectedState.getKey(), modelZip.getObject());
+				DAO dao = new DAO();
 
 				LOG.debug("Saving objcet");
+
+				Location location = new Location();
 				
-				//TODO save object in DB
+				location.setLocationName(modelName.getObject());
 				
-				LOG.debug("Done saving object");
+				location.setAddressApt(modelApt.getObject());
+				location.setAddressStreet(modelStreet.getObject());
+				location.setAddressNum(modelNum.getObject());
+				location.setAddressCity(modelCity.getObject());
+				location.setAddressState(selectedState.getKey());
+				location.setAddressZip(modelZip.getObject());
+				
+				location.setEmailAddress(modelEmailAddress.getObject());
+				location.setMgrNameFirst(modelMgrNameFirst.getObject());
+				location.setMgrNameLast(modelMgrNameLast.getObject());
+				
+				Phone primary = new Phone(modelPriPhNumber.getObject(),modelPriPhExtension.getObject());
+				location.setPhonePrimary(primary);
+				
+				Phone secondary = new Phone(modelSecPhNumber.getObject(),modelSecPhExtension.getObject());
+				location.setPhoneSecondary(secondary);
+				
+				//TODO add form field to set opening date.
+				location.setOpeningDate(new Date());
+				
+				dao.ofy().put(location);
+				assert location.getId() != null;
+
+				LOG.debug("Done saving object: " + location.getId());
 			}
 		};
 		add(form);
@@ -133,8 +164,7 @@ public class AddLocation extends Panel
 		form.add(fieldEmail.add(new AttributeModifier("onFocus", "clearFormField(this);")));
 
 		ChoiceRenderer<SelectOption> choiceRenderer = new ChoiceRenderer<SelectOption>("value", "key");
-		DropDownChoice<SelectOption> fieldState = new DropDownChoice<SelectOption>("locAddrState", new PropertyModel<SelectOption>(this, "selectedState"), stateChoiceModel,
-				choiceRenderer);
+		DropDownChoice<SelectOption> fieldState = new DropDownChoice<SelectOption>("locAddrState", new PropertyModel<SelectOption>(this, "selectedState"), stateChoiceModel, choiceRenderer);
 		form.add(fieldState.add(new AttributeModifier("onFocus", "clearFormField(this);")));
 
 		TextField<String> fieldZip = new TextField<String>("locAddrZip", modelZip);

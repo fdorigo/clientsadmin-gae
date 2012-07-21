@@ -1,10 +1,19 @@
 package com.igadmin.data;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
 
-public class Trainer
+import javax.persistence.Id;
+
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Unindexed;
+
+@Entity
+@Unindexed
+public class Trainer implements Serializable
 {
+	private static final long	serialVersionUID	= -7246007345082461830L;
+	
 	public static final String ADDRESS_APT_PROPERTY = "addressApt";
     public static final String ADDRESS_CITY_PROPERTY = "addressCity";
     public static final String ADDRESS_NUM_PROPERTY = "addressNum";
@@ -43,6 +52,19 @@ public class Trainer
     private Location location;
     private List<Client> clients;
     private List<GymSession> sessions;
+    
+	@Id
+	private Long id;
+    
+	public Long getId()
+	{
+		return id;
+	}
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+
 	public String getNameFirst()
 	{
 		return nameFirst;

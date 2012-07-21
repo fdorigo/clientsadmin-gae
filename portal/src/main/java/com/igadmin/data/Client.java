@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Id;
+
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Unindexed;
+
+@Entity
+@Unindexed
 public class Client implements Serializable
 {
 	private static final long	serialVersionUID	= 7573328143738817326L;
@@ -54,6 +61,18 @@ public class Client implements Serializable
     private List<GymPackage> packages;
     private List<GymSession> sessions;
 
+	@Id
+	private Long id;
+    
+	public Long getId()
+	{
+		return id;
+	}
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
+    
     public String getNameFirst()
 	{
 		return nameFirst;
