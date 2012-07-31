@@ -49,6 +49,21 @@
 			<artifactId>wicket-auth-roles</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-datetime</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.odlabs.wiquery</groupId>
+			<artifactId>wiquery-core</artifactId>
+			<version>1.5.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.odlabs.wiquery</groupId>
+			<artifactId>wiquery-jquery-ui</artifactId>
+			<version>1.5.7</version>
+		</dependency>
 
 		<!-- APACHE COMMONS -->
 		<dependency>
@@ -101,6 +116,28 @@
 			<artifactId>jetty-all-server</artifactId>
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- APACHE COMMONS -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-math</groupId>
+			<artifactId>commons-math</artifactId>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 	<build>
