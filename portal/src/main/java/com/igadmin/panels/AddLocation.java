@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -22,22 +23,13 @@ import com.igadmin.data.Phone;
 import com.igadmin.form.FormUtils;
 import com.igadmin.form.SelectOption;
 
+@AuthorizeInstantiation("ADMIN")
 public class AddLocation extends Panel
 {
 	private static final long	serialVersionUID	= 3695907416548135080L;
 	private static final Logger	LOG					= Logger.getLogger(AddLocation.class);
 
 	private SelectOption		selectedState;
-
-	public SelectOption getSelectedState()
-	{
-		return selectedState;
-	}
-
-	public void setSelectedState(SelectOption selectedState)
-	{
-		this.selectedState = selectedState;
-	}
 
 	public AddLocation(String panelId)
 	{
@@ -170,5 +162,15 @@ public class AddLocation extends Panel
 		TextField<String> fieldZip = new TextField<String>("locAddrZip", modelZip);
 		form.add(fieldZip.add(new AttributeModifier("onFocus", "clearFormField(this);")));
 
+	}
+
+	public SelectOption getSelectedState()
+	{
+		return selectedState;
+	}
+
+	public void setSelectedState(SelectOption selectedState)
+	{
+		this.selectedState = selectedState;
 	}
 }

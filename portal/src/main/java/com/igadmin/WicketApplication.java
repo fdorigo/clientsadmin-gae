@@ -42,7 +42,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 
 	@Override
 	public void restartResponseAtSignInPage() {
-		LOG.debug("Restart at sign in...");
+		
 		super.restartResponseAtSignInPage();
 	}
 
@@ -51,6 +51,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		return new AppSession(request);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected void init() {
 		super.init();

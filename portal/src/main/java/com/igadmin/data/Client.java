@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -36,7 +40,7 @@ public class Client implements Serializable
     public static final String LOCATION_PROPERTY = "location";
     public static final String PACKAGES_PROPERTY = "packages";
     public static final String SESSIONS_PROPERTY = "sessions";
-    public static final String TRAINER_PROPERTY = "trainer";
+    public static final String TRAINER_PROPERTY = "primaryTrainer";
 
     private String nameFirst;
     private String nameMiddle;
@@ -56,8 +60,8 @@ public class Client implements Serializable
     private String phonePrimary;
     private String phoneSecondary;
     
-    private Location location;
-    private Trainer trainer;
+    @Indexed @Embedded private Location location;
+    @Indexed @Embedded private Trainer trainer;
     private List<GymPackage> packages;
     private List<GymSession> sessions;
 
@@ -73,7 +77,12 @@ public class Client implements Serializable
 		this.id = id;
 	}
     
-    public String getNameFirst()
+    @Override
+	public String toString()
+	{
+		return ToStringBuilder.reflectionToString(this);
+	}
+	public String getNameFirst()
 	{
 		return nameFirst;
 	}
@@ -216,5 +225,9 @@ public class Client implements Serializable
 	public void setSessions(List<GymSession> sessions)
 	{
 		this.sessions = sessions;
+	}
+	public String getName()
+	{
+		return this.nameFirst + " " + this.nameLast;
 	}    
 }

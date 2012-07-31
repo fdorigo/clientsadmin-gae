@@ -3,9 +3,14 @@ package com.igadmin.data;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.NotSaved;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -32,9 +37,9 @@ public class Trainer implements Serializable
     public static final String LOCATION_PROPERTY = "location";
     public static final String SESSION_ARRAY_PROPERTY = "sessionArray";
     
-    private String nameFirst;
+    @Indexed private String nameFirst;
     private String nameMiddle;
-    private String nameLast;
+    @Indexed private String nameLast;
     
     private String addressNum;
     private String addressStreet;
@@ -43,19 +48,31 @@ public class Trainer implements Serializable
     private String addressState;
     private String addressZip;
         
-    private String emailAddress;
+    @Indexed private String emailAddress;
     private String phonePrimary;
     private String phoneSecondary;
     
     private Double compRate;
     
-    private Location location;
-    private List<Client> clients;
-    private List<GymSession> sessions;
+    @Embedded private Location location;
+    @NotSaved private List<Client> clients;
+    @NotSaved private List<GymSession> sessions;
     
 	@Id
 	private Long id;
     
+    
+    @Override
+	public String toString()
+	{
+		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	public String getName()
+	{
+		return this.nameFirst + " " + this.nameLast;
+	}
+	
 	public Long getId()
 	{
 		return id;

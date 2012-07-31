@@ -4,13 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.igadmin.data.Location;
+import com.igadmin.data.Trainer;
+import com.igadmin.data.utils.StorageUtils;
 
 public class FormUtils
 {
-	public static List<SelectOption> initTrainerOptionList(Location location)
+	public static List<SelectOption> initTrainerOptionList(final Location location)
 	{
-		//TODO get list from DB
-		return new ArrayList<SelectOption>();
+		final List<Trainer> trainers = StorageUtils.getTrainerListForLocation(location);
+		final List<SelectOption> options = new ArrayList<SelectOption>(trainers.size());
+		
+		for (Trainer t : trainers)
+		{
+			options.add(new SelectOption(t.getId().toString(), t.getName()));
+		}
+		
+		return options;
 	}
 
 	public static List<SelectOption> initLocationOptionList()

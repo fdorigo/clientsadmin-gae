@@ -1,10 +1,14 @@
 package com.igadmin.data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -20,6 +24,8 @@ public class GymSession implements Serializable
     public static final String PACKAGE_PROPERTY = "package";
     public static final String TO_TRAINER_PROPERTY = "toTrainer";
 	
+    @Indexed private Date trainedDate;
+    
     @Id
 	private Long id;
     
@@ -30,6 +36,21 @@ public class GymSession implements Serializable
 	public void setId(Long id)
 	{
 		this.id = id;
+	}
+    
+    @Override
+	public String toString()
+	{
+		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	public Date getTrainedDate()
+	{
+		return trainedDate;
+	}
+	public void setTrainedDate(Date trainedDate)
+	{
+		this.trainedDate = trainedDate;
 	}
 
 

@@ -19,22 +19,22 @@ public class Email implements Serializable
 {
 	private static final long	serialVersionUID	= -4438536682546580324L;
 	private static final Logger	LOG					= Logger.getLogger(Email.class);
-	
+
 	@Indexed
 	private String				email				= "";
 
 	@Id
-	private Long id;
-    
+	private Long				id;
+
 	public Long getId()
 	{
 		return id;
 	}
+
 	public void setId(Long id)
 	{
 		this.id = id;
 	}
-
 
 	public Email()
 	{

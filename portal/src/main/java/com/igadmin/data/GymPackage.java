@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Id;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Unindexed;
 
@@ -22,7 +24,14 @@ public class GymPackage implements Serializable
 	@Id
 	private Long id;
     
-	public Long getId()
+    
+    @Override
+	public String toString()
+	{
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+    public Long getId()
 	{
 		return id;
 	}

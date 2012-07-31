@@ -32,6 +32,13 @@
 				</div>
 
 				<div class="form_input_line">
+					<label>&nbsp;
+					<span class="small">Date of birth</span>
+					</label> 
+					<input style="width:120px;" maxlength="25" type="text" wicket:id="dateBirth" /> 
+				</div>
+				
+				<div class="form_input_line">
 					<label>Contact Information 
 					<span class="small">Primary phone</span>
 					</label> 
@@ -65,11 +72,18 @@
 					</label>				
 					<input style="width:120px;" type="text" wicket:id="addressCity" /> 
 					<select style="width:100px;" wicket:id="addressState"></select> 
-					<input style="width:60px;" type="text" wicket:id="addressZip" />
+					<input style="width:56px;" type="text" wicket:id="addressZip" />
+				</div>
+
+				<div class="form_input_line">				
+					<label>Primary Trainer 
+						<span class="small">Specify the primary trainer</span>
+					</label> 
+					<select style="width:310px;" wicket:id="primaryTrainer"></select> 
 				</div>
 
 				<div class="form_input_line">
-					<input class="submitButton" type="submit" value="Add Trainer" />
+					<input class="submitButton" type="submit" value="Add Client" />
 				</div>				
 			</fieldset>
 		</form>

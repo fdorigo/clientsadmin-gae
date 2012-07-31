@@ -11,6 +11,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import com.igadmin.data.Client;
 import com.igadmin.data.GymPackage;
+import com.igadmin.data.Trainer;
 import com.igadmin.form.SelectOption;
 
 public class AddPackage extends Panel
@@ -23,9 +24,11 @@ public class AddPackage extends Panel
 	private GymPackage packageModel;
 	
 	private SelectOption selectedClient;
+	private SelectOption selectedTrainer;
 	
 	@SuppressWarnings("unused")
 	private List<Client> listOfClients = new ArrayList<Client>();
+	private List<Trainer> listOfTrainers = new ArrayList<Trainer>();
 
 	public AddPackage(String id)
 	{
@@ -51,9 +54,7 @@ public class AddPackage extends Panel
 
 		add(form);
 
-		// initNameFields(form);
-		// initAddressFields(form);
-		// initPhoneFields(form);
+		
 	}
 
 	public SelectOption getSelectedClient()
@@ -64,6 +65,16 @@ public class AddPackage extends Panel
 	public void setSelectedClient(SelectOption selectedClient)
 	{
 		this.selectedClient = selectedClient;
+	}
+
+	public SelectOption getSelectedTrainer()
+	{
+		return selectedTrainer;
+	}
+
+	public void setSelectedTrainert(SelectOption selectedTrainer)
+	{
+		this.selectedTrainer = selectedTrainer;
 	}
 
 }
