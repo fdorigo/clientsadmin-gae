@@ -23,7 +23,7 @@ import com.igadmin.data.Phone;
 import com.igadmin.form.FormUtils;
 import com.igadmin.form.SelectOption;
 
-@AuthorizeInstantiation("ADMIN")
+//@AuthorizeInstantiation("ADMIN")
 public class AddLocation extends Panel
 {
 	private static final long	serialVersionUID	= 3695907416548135080L;

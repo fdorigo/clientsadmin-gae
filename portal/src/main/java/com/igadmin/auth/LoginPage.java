@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authentication.panel.SignInPanel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import com.igadmin.pages.BasePage;
+import com.igadmin.BasePage;
 
 public class LoginPage extends BasePage
 {

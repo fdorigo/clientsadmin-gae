@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <igadmin-conf>
-	<create-test-values> true </create-test-values>
+	<create-test-values> false </create-test-values>
 </igadmin-conf>

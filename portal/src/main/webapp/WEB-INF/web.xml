@@ -6,7 +6,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 	<display-name>Wicket Examples</display-name>
 	<filter>
-		<filter-name>HelloWorldApplication</filter-name>
+		<filter-name>IGAdmin Application</filter-name>
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
 		<init-param>
 			<param-name>applicationClassName</param-name>
@@ -14,7 +14,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>HelloWorldApplication</filter-name>
+		<filter-name>IGAdmin Application</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 </web-app>

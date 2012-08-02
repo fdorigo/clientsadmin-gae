@@ -11,7 +11,7 @@ public class TestDataGenerator
 	public static Location createLocation()
 	{
 		final DAO dao = new DAO();
-		final Location location = dao.getOrCreateLocation(0);
+		final Location location = dao.getOrCreateLocation(1);
 		
 		location.setLocationName("Test HQ");
 		
@@ -23,7 +23,7 @@ public class TestDataGenerator
 	public static Trainer createTrainer()
 	{
 		final DAO dao = new DAO();
-		final Trainer trainer = dao.getOrCreateTrainer(0);
+		final Trainer trainer = dao.getOrCreateTrainer(1);
 		
 		trainer.setNameFirst("Darth");
 		trainer.setNameLast("Vader");
@@ -38,7 +38,7 @@ public class TestDataGenerator
 	public static Client createClient()
 	{
 		final DAO dao = new DAO();
-		final Client client = dao.getOrCreateClient(0);
+		final Client client = dao.getOrCreateClient(1);
 		
 		client.setNameFirst("Joe");
 		client.setNameLast("Butterball");

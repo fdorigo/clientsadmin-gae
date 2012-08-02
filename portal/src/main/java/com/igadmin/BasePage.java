@@ -1,4 +1,4 @@
-package com.igadmin.pages;
+package com.igadmin;
 
 import org.apache.wicket.markup.html.WebPage;
 

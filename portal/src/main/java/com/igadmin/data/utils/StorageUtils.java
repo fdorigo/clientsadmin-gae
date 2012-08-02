@@ -19,7 +19,7 @@ import com.igadmin.data.Trainer;
 public class StorageUtils
 {
 	private static final Logger		LOG			= Logger.getLogger(StorageUtils.class);
-	private static final Boolean	useTestData	= AppConfig.getInstance().useTestValues();
+	private static final Boolean	useTestData	= true; //AppConfig.getInstance().useTestValues();
 
 	public static List<Location> getLocationList()
 	{
@@ -34,6 +34,31 @@ public class StorageUtils
 		DAO dao = new DAO();
 
 		Query<Location> locations = dao.ofy().query(Location.class);
+
+		if (LOG.isTraceEnabled())
+		{
+			if (locations != null)
+			{
+				LOG.trace("Number of locations retrieved: " + locations.count());
+			}
+		}
+
+		return locations.list();
+	}
+
+	public static List<Location> getLocationList(int first, int count)
+	{
+		if (useTestData)
+		{
+			List<Location> temps = new ArrayList<Location>(1);
+			temps.add(TestDataGenerator.createLocation());
+
+			return temps;
+		}
+
+		DAO dao = new DAO();
+
+		Query<Location> locations = dao.ofy().query(Location.class).offset(first).limit(count);
 
 		if (LOG.isTraceEnabled())
 		{

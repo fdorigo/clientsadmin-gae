@@ -19,7 +19,6 @@ import org.apache.wicket.util.IProvider;
 
 import com.igadmin.auth.AppSession;
 import com.igadmin.auth.LoginPage;
-import com.igadmin.pages.HomePage;
 
 /**
  * Application object for your web application. If you want to run this

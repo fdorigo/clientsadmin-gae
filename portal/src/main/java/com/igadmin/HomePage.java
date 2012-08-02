@@ -1,4 +1,4 @@
-package com.igadmin.pages;
+package com.igadmin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.igadmin.panels.AddClient;
 import com.igadmin.panels.AddLocation;
 import com.igadmin.panels.AddTrainer;
 
-@AuthorizeInstantiation("ADMIN")
+//@AuthorizeInstantiation("ADMIN")
 public class HomePage extends BasePage
 {
 	private static final long	serialVersionUID	= 1L;
@@ -97,6 +97,17 @@ public class HomePage extends BasePage
 				return new AddClient(panelId);
 			}
 		});
+
+//		tabs.add(new AbstractTab(new Model<String>("List Locations"))
+//		{
+//			private static final long	serialVersionUID	= 1L;
+//
+//			@Override
+//			public WebMarkupContainer getPanel(String panelId)
+//			{
+//				return new SearchLocation(panelId);
+//			}
+//		});
 
 		return tabs;
 	}

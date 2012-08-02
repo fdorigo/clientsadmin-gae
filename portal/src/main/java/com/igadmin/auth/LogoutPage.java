@@ -1,6 +1,6 @@
 package com.igadmin.auth;
 
-import com.igadmin.pages.BasePage;
+import com.igadmin.BasePage;
 
 public class LogoutPage extends BasePage
 {
