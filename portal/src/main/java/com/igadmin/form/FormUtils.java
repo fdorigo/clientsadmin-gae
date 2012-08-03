@@ -24,8 +24,15 @@ public class FormUtils
 
 	public static List<SelectOption> initLocationOptionList()
 	{
-		//TODO get list from DB
-		return new ArrayList<SelectOption>();
+		final List<SelectOption> options = new ArrayList<SelectOption>();
+		final List<Location> locations = StorageUtils.getLocationList();
+		
+		for (Location l : locations)
+		{
+			options.add(new SelectOption(l.getId().toString(), l.getLocationName()));
+		}
+		
+		return options;
 	}
 	
 	public static List<SelectOption> initClientOptionList(Location location)

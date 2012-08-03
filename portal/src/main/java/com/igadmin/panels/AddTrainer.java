@@ -18,6 +18,8 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.validator.MaximumValidator;
 import org.apache.wicket.validation.validator.MinimumValidator;
 
+import com.igadmin.data.DAO;
+import com.igadmin.data.Location;
 import com.igadmin.data.Trainer;
 import com.igadmin.form.FormUtils;
 import com.igadmin.form.SelectOption;
@@ -50,11 +52,22 @@ public class AddTrainer extends Panel
 			@Override
 			protected void onSubmit()
 			{
-				//TODO add trainer to DB
+				final DAO dao = new DAO();
+				Long locKey = Long.parseLong(getSelectedLocation().getKey());
+				LOG.debug("Selected location key: " + locKey);
+				
+				Trainer trainer = getModelObject();
+				trainer.setLocation(dao.getOrCreateLocation(locKey));
+				trainer.setAddressState(getSelectedState().getValue());
+				
+				dao.ofy().put(trainer);
+				LOG.debug("Trainer from model: " + trainer);  
 			}
 		};
 		
 		listOfLocations = FormUtils.initLocationOptionList();
+		
+		LOG.debug("Option list size:" + listOfLocations.size());
 		
 		add(form);
 		
@@ -62,12 +75,12 @@ public class AddTrainer extends Panel
 		initPhoneFields(form);
 		initAddressFields(form);
 
-		TextField<Integer> payRate = new TextField<Integer>(Trainer.COMP_RATE_PROPERTY);
+		TextField<Double> payRate = new TextField<Double>(Trainer.COMP_RATE_PROPERTY);
 		form.add(payRate);
 		payRate.setRequired(true);
 		payRate.add(new AttributeModifier("onFocus", "clearFormField(this);"));
-		payRate.add(new MinimumValidator<Integer>(0));
-		payRate.add(new MaximumValidator<Integer>(100));
+		payRate.add(new MinimumValidator<Double>(0.0));
+		payRate.add(new MaximumValidator<Double>(100.0));
 		
 	}
 	
@@ -121,7 +134,7 @@ public class AddTrainer extends Panel
 		};
 
 		ChoiceRenderer<SelectOption> choiceLocationRenderer = new ChoiceRenderer<SelectOption>("value", "key");
-		DropDownChoice<SelectOption> fieldLocation = new DropDownChoice<SelectOption>(Trainer.LOCATION_PROPERTY,  new PropertyModel<SelectOption>(this, "selectedState"), locationChoiceModel, choiceLocationRenderer);
+		DropDownChoice<SelectOption> fieldLocation = new DropDownChoice<SelectOption>(Trainer.LOCATION_PROPERTY,  new PropertyModel<SelectOption>(this, "selectedLocation"), locationChoiceModel, choiceLocationRenderer);
 		form.add(fieldLocation.add(new AttributeModifier("onFocus", "clearFormField(this);")));
 		fieldLocation.setRequired(true);
 
@@ -146,21 +159,25 @@ public class AddTrainer extends Panel
 	
 	public SelectOption getSelectedState()
 	{
+		LOG.debug("Getting selected state");
 		return selectedState;
 	}
 
 	public void setSelectedState(SelectOption selectedState)
 	{
+		LOG.debug("Setting selected state");
 		this.selectedState = selectedState;
 	}
 
 	public SelectOption getSelectedLocation()
 	{
+		LOG.debug("Getting selected location");
 		return selectedLocation;
 	}
 
 	public void setSelectedLocation(SelectOption selectedLocation)
 	{
+		LOG.debug("Setting selected location");
 		this.selectedLocation = selectedLocation;
 	}
 }

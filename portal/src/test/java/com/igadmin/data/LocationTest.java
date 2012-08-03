@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
 public class LocationTest
 {
 	private final static LocalServiceTestHelper	helper	= new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());

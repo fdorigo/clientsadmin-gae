@@ -20,17 +20,15 @@ public class AppSession extends AuthenticatedWebSession
 		super(request);
 	}
 	
-	public Location getLocation()
+	public Location getSessionLocation()
 	{
-		DAO dao = new DAO();
-		
 		/* Admin user can access any location */
 		if (loggedInUser.getRole().hasRole("ADMIN"))
 		{
 			return null;
 		}
 		
-		return dao.ofy().get(loggedInUser.getLocationKey());
+		return new DAO().ofy().get(loggedInUser.getLocationKey());
 	}
 	
 	@Override

@@ -41,7 +41,7 @@ public class AddClient extends Panel
 	{
 		super(panelId);
 
-		location = ((AppSession) getSession()).getLocation();
+		location = ((AppSession) getSession()).getSessionLocation();
 
 		clientModel = new Client();
 

@@ -3,7 +3,6 @@ package com.igadmin;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
@@ -17,6 +16,7 @@ import com.igadmin.auth.LogoutPage;
 import com.igadmin.panels.AddClient;
 import com.igadmin.panels.AddLocation;
 import com.igadmin.panels.AddTrainer;
+import com.igadmin.panels.SearchLocation;
 
 //@AuthorizeInstantiation("ADMIN")
 public class HomePage extends BasePage
@@ -98,16 +98,16 @@ public class HomePage extends BasePage
 			}
 		});
 
-//		tabs.add(new AbstractTab(new Model<String>("List Locations"))
-//		{
-//			private static final long	serialVersionUID	= 1L;
-//
-//			@Override
-//			public WebMarkupContainer getPanel(String panelId)
-//			{
-//				return new SearchLocation(panelId);
-//			}
-//		});
+		tabs.add(new AbstractTab(new Model<String>("List Locations"))
+		{
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			public WebMarkupContainer getPanel(String panelId)
+			{
+				return new SearchLocation(panelId);
+			}
+		});
 
 		return tabs;
 	}

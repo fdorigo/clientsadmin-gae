@@ -10,6 +10,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -38,6 +39,7 @@ public class Location implements Serializable
 	public static final String	TRAINERS_PROPERTY			= "trainers";
 
 	@Id
+	@Indexed
 	private Long				id;
 
 	private String				locationName;
@@ -54,6 +56,7 @@ public class Location implements Serializable
 
 	private Date				openingDate;
 
+	@Indexed
 	private String				emailAddress;
 	@Embedded
 	private Phone				phonePrimary;
@@ -63,25 +66,20 @@ public class Location implements Serializable
 	@Override
 	public boolean equals(Object obj)
 	{
-	     if (obj instanceof Location == false)  
-	      {  
-	        return false;  
-	      }  
-	      if (this == obj)  
-	      {  
-	         return true;  
-	      } 
-	      
-	      final Location other = (Location)obj;
-	      
-		return new EqualsBuilder()
-			.append(this.locationName, other.locationName)
-			.append(this.addressState, other.addressState)
-			.append(this.addressCity, other.addressCity)
-			.append(this.openingDate, other.openingDate)
-			.append(this.emailAddress, other.emailAddress)
-			.append(this.mgrNameLast, other.mgrNameLast)
-			.isEquals();
+		if (obj instanceof Location == false)
+		{
+			return false;
+		}
+		
+		if (this == obj)
+		{
+			return true;
+		}
+
+		final Location other = (Location) obj;
+
+		return new EqualsBuilder().append(this.locationName, other.locationName).append(this.addressState, other.addressState).append(this.addressCity, other.addressCity)
+				.append(this.openingDate, other.openingDate).append(this.emailAddress, other.emailAddress).append(this.mgrNameLast, other.mgrNameLast).isEquals();
 	}
 
 	@Override
