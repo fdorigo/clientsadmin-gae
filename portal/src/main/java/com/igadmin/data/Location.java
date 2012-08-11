@@ -27,7 +27,7 @@ public class Location implements Serializable
 	public static final String	ADDRESS_ZIP_PROPERTY		= "addressZip";
 	public static final String	MGR_NAME_FIRST_PROPERTY		= "mgrNameFirst";
 	public static final String	MGR_NAME_LAST_PROPERTY		= "mgrNameLast";
-	public static final String	NAME_PROPERTY				= "name";
+	public static final String	NAME_PROPERTY				= "locationName";
 	public static final String	OPENING_DATE_PROPERTY		= "openingDate";
 	public static final String	PHONE_PRIMARY_PROPERTY		= "phonePrimary";
 	public static final String	PHONE_SECONDARY_PROPERTY	= "phoneSecondary";

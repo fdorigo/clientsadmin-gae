@@ -7,12 +7,15 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.igadmin.annotation.WorkInProgress;
 
 @Entity
 @Unindexed
+@WorkInProgress
 public class GymSession implements Serializable
 {
 	private static final long	serialVersionUID	= 5860005841461802814L;
@@ -22,8 +25,11 @@ public class GymSession implements Serializable
     public static final String TYPE_PROPERTY = "type";
     public static final String CLIENT_PROPERTY = "client";
     public static final String PACKAGE_PROPERTY = "package";
-    public static final String TO_TRAINER_PROPERTY = "toTrainer";
-	
+
+    private Key<Long> trainer;
+    private Key<Long> client;
+    private Double price;
+    private Double trainerRate;
     @Indexed private Date trainedDate;
     
     @Id

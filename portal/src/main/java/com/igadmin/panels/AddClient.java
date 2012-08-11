@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Session;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
@@ -40,8 +41,8 @@ public class AddClient extends Panel
 	public AddClient(String panelId)
 	{
 		super(panelId);
-
-		location = ((AppSession) getSession()).getSessionLocation();
+		
+		location = ((AppSession)Session.get()).getSessionLocation();
 
 		clientModel = new Client();
 

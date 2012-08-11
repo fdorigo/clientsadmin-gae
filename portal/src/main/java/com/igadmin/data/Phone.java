@@ -36,11 +36,14 @@ public class Phone implements Serializable
 
 	public Phone()
 	{
+		this.number = "";
+		this.extension = "";
 	}
 
 	public Phone(String number)
 	{
 		this.number = number;
+		this.extension = "";
 	}
 
 	public Phone(String number, String extension)

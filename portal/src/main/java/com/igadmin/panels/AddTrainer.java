@@ -21,6 +21,7 @@ import org.apache.wicket.validation.validator.MinimumValidator;
 import com.igadmin.data.DAO;
 import com.igadmin.data.Location;
 import com.igadmin.data.Trainer;
+import com.igadmin.data.utils.StorageUtils;
 import com.igadmin.form.FormUtils;
 import com.igadmin.form.SelectOption;
 
@@ -31,9 +32,9 @@ public class AddTrainer extends Panel
 	private static final Logger LOG = Logger.getLogger(AddTrainer.class);
 	private final Trainer trainerModel;
 	private SelectOption selectedState;
-	private SelectOption selectedLocation;
+	private Location selectedLocation;
 	private List<SelectOption> listOfStates;// = new ArrayList<SelectOption>();
-	private List<SelectOption> listOfLocations;// = new ArrayList<SelectOption>();
+	private List<Location> listOfLocations;// = new ArrayList<SelectOption>();
 
 	public AddTrainer(String panelId)
 	{
@@ -53,8 +54,8 @@ public class AddTrainer extends Panel
 			protected void onSubmit()
 			{
 				final DAO dao = new DAO();
-				Long locKey = Long.parseLong(getSelectedLocation().getKey());
-				LOG.debug("Selected location key: " + locKey);
+				Long locKey = getSelectedLocation().getId();
+				LOG.debug("Selected location id: " + locKey);
 				
 				Trainer trainer = getModelObject();
 				trainer.setLocation(dao.getOrCreateLocation(locKey));
@@ -65,7 +66,7 @@ public class AddTrainer extends Panel
 			}
 		};
 		
-		listOfLocations = FormUtils.initLocationOptionList();
+		listOfLocations = StorageUtils.getLocationList();
 		
 		LOG.debug("Option list size:" + listOfLocations.size());
 		
@@ -123,18 +124,18 @@ public class AddTrainer extends Panel
 			}
 		};
 
-		final IModel<List<SelectOption>> locationChoiceModel = new AbstractReadOnlyModel<List<SelectOption>>() {
-			private static final long serialVersionUID = 1L;
+//		final IModel<List<Location>> locationChoiceModel = new AbstractReadOnlyModel<List<Location>>() {
+//			private static final long serialVersionUID = 1L;
+//
+//			@Override
+//			public List<Location> getObject()
+//			{
+//				return listOfLocations;
+//			}
+//		};
 
-			@Override
-			public List<SelectOption> getObject()
-			{
-				return listOfLocations;
-			}
-		};
-
-		ChoiceRenderer<SelectOption> choiceLocationRenderer = new ChoiceRenderer<SelectOption>("value", "key");
-		DropDownChoice<SelectOption> fieldLocation = new DropDownChoice<SelectOption>(Trainer.LOCATION_PROPERTY,  new PropertyModel<SelectOption>(this, "selectedLocation"), locationChoiceModel, choiceLocationRenderer);
+		ChoiceRenderer<Location> choiceLocationRenderer = new ChoiceRenderer<Location>("locationName", "id");
+		DropDownChoice<Location> fieldLocation = new DropDownChoice<Location>(Trainer.LOCATION_PROPERTY,  new PropertyModel<Location>(this, "selectedLocation"), listOfLocations, choiceLocationRenderer);
 		form.add(fieldLocation.add(new AttributeModifier("onFocus", "clearFormField(this);")));
 		fieldLocation.setRequired(true);
 
@@ -169,13 +170,13 @@ public class AddTrainer extends Panel
 		this.selectedState = selectedState;
 	}
 
-	public SelectOption getSelectedLocation()
+	public Location getSelectedLocation()
 	{
 		LOG.debug("Getting selected location");
 		return selectedLocation;
 	}
 
-	public void setSelectedLocation(SelectOption selectedLocation)
+	public void setSelectedLocation(Location selectedLocation)
 	{
 		LOG.debug("Setting selected location");
 		this.selectedLocation = selectedLocation;

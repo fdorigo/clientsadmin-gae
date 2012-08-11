@@ -10,33 +10,53 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.igadmin.auth.LoginPage;
 import com.igadmin.auth.LogoutPage;
 import com.igadmin.panels.AddClient;
-import com.igadmin.panels.AddLocation;
 import com.igadmin.panels.AddTrainer;
+import com.igadmin.panels.LocationPanel;
 import com.igadmin.panels.SearchLocation;
 
 //@AuthorizeInstantiation("ADMIN")
 public class HomePage extends BasePage
 {
-	private static final long	serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
+	private AjaxTabbedPanel<ITab>	tabbedPanel;
+	private Integer					selectedTabIndex	= 0;
+	private static final Logger		LOG					= LoggerFactory.getLogger(HomePage.class);
 
 	public HomePage()
 	{
-		initComponents();
+		initComponents(getPageParameters());
 	}
 
 	public HomePage(final PageParameters parameters)
 	{
-		initComponents();
+		initComponents(parameters);
 	}
 
-	private void initComponents()
+	private void initComponents(final PageParameters params)
 	{
-		AjaxTabbedPanel<ITab> tabbedPanel = new AjaxTabbedPanel<ITab>("tabbedPanel", getTabList());
+		if (params.get("newTabId").isEmpty())
+		{
+			try
+			{
+				Integer index = Integer.parseInt(getPageParameters().get("newTabId").toString());
+				selectedTabIndex = index;
+			}
+			catch (NumberFormatException e)
+			{
+				LOG.warn("Error parsing page parameters: " + e.getMessage());
+			}
+		}
+
+		tabbedPanel = new AjaxTabbedPanel<ITab>("tabbedPanel", getTabList(params));
 		add(tabbedPanel);
+		
+		tabbedPanel.setSelectedTab(selectedTabIndex);
 
 		add(new Link<Void>("login")
 		{
@@ -61,7 +81,7 @@ public class HomePage extends BasePage
 		});
 	}
 
-	private List<ITab> getTabList()
+	private List<ITab> getTabList(final PageParameters p)
 	{
 		List<ITab> tabs = new ArrayList<ITab>();
 
@@ -72,7 +92,7 @@ public class HomePage extends BasePage
 			@Override
 			public WebMarkupContainer getPanel(String panelId)
 			{
-				return new AddLocation(panelId);
+				return new LocationPanel(panelId, p);
 			}
 		});
 

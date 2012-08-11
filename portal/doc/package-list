@@ -1,0 +1,10 @@
+com.igadmin
+com.igadmin.annotation
+com.igadmin.auth
+com.igadmin.conf
+com.igadmin.data
+com.igadmin.data.utils
+com.igadmin.exceptions
+com.igadmin.form
+com.igadmin.models
+com.igadmin.panels

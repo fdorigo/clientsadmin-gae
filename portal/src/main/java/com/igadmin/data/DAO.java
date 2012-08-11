@@ -19,6 +19,11 @@ public class DAO extends DAOBase
 
     public Location getOrCreateLocation(long id)
     {
+    	if (id == 0)
+    	{
+    		return new Location();
+    	}
+    	
         Location found = ofy().find(Location.class, id);
         
         if (found == null)
@@ -29,6 +34,11 @@ public class DAO extends DAOBase
 
     public Trainer getOrCreateTrainer(long id)
     {
+    	if (id == 0)
+    	{
+    		return new Trainer();
+    	}
+
     	Trainer found = ofy().find(Trainer.class, id);
         
     	if (found == null)
@@ -39,7 +49,12 @@ public class DAO extends DAOBase
 
 	public Client getOrCreateClient(long id)
 	{
-		Client found = ofy().find(Client.class, id);
+    	if (id == 0)
+    	{
+    		return new Client();
+    	}
+
+    	Client found = ofy().find(Client.class, id);
 		
 		if (found == null)
 			return new Client();

@@ -1,9 +1,11 @@
 package com.igadmin.auth;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.request.handler.RenderPageRequestHandler.RedirectPolicy;
 
 import com.igadmin.data.DAO;
 import com.igadmin.data.Location;
@@ -22,6 +24,11 @@ public class AppSession extends AuthenticatedWebSession
 	
 	public Location getSessionLocation()
 	{
+		if (loggedInUser == null)
+		{
+			throw new RestartResponseException(LoginPage.class);
+		}
+		
 		/* Admin user can access any location */
 		if (loggedInUser.getRole().hasRole("ADMIN"))
 		{
