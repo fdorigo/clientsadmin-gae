@@ -16,9 +16,10 @@ import org.slf4j.LoggerFactory;
 import com.igadmin.auth.LoginPage;
 import com.igadmin.auth.LogoutPage;
 import com.igadmin.panels.AddClient;
-import com.igadmin.panels.AddTrainer;
 import com.igadmin.panels.LocationPanel;
 import com.igadmin.panels.SearchLocation;
+import com.igadmin.panels.SearchTrainer;
+import com.igadmin.panels.TrainerPanel;
 
 //@AuthorizeInstantiation("ADMIN")
 public class HomePage extends BasePage
@@ -40,23 +41,31 @@ public class HomePage extends BasePage
 
 	private void initComponents(final PageParameters params)
 	{
-		if (params.get("newTabId").isEmpty())
+		LOG.debug("Initializing HomePage");
+		
+		if (!params.get("newTabId").isEmpty())
 		{
 			try
 			{
-				Integer index = Integer.parseInt(getPageParameters().get("newTabId").toString());
+				Integer index = Integer.parseInt(params.get("newTabId").toString());
 				selectedTabIndex = index;
+				LOG.debug("Selected tab index: " + index);
 			}
 			catch (NumberFormatException e)
 			{
 				LOG.warn("Error parsing page parameters: " + e.getMessage());
 			}
 		}
+		else {
+			LOG.debug("NO TAB INDEX?");
+		}
+		
 
 		tabbedPanel = new AjaxTabbedPanel<ITab>("tabbedPanel", getTabList(params));
-		add(tabbedPanel);
 		
 		tabbedPanel.setSelectedTab(selectedTabIndex);
+
+		add(tabbedPanel);
 
 		add(new Link<Void>("login")
 		{
@@ -85,7 +94,7 @@ public class HomePage extends BasePage
 	{
 		List<ITab> tabs = new ArrayList<ITab>();
 
-		tabs.add(new AbstractTab(new Model<String>("Add Location"))
+		tabs.add(new AbstractTab(new Model<String>("Locations"))
 		{
 			private static final long	serialVersionUID	= 1L;
 
@@ -96,14 +105,14 @@ public class HomePage extends BasePage
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("Add Trainer"))
+		tabs.add(new AbstractTab(new Model<String>("Trainers"))
 		{
 			private static final long	serialVersionUID	= 1L;
 
 			@Override
 			public WebMarkupContainer getPanel(String panelId)
 			{
-				return new AddTrainer(panelId);
+				return new TrainerPanel(panelId, p);
 			}
 		});
 
@@ -126,6 +135,17 @@ public class HomePage extends BasePage
 			public WebMarkupContainer getPanel(String panelId)
 			{
 				return new SearchLocation(panelId);
+			}
+		});
+
+		tabs.add(new AbstractTab(new Model<String>("List Trainers"))
+		{
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			public WebMarkupContainer getPanel(String panelId)
+			{
+				return new SearchTrainer(panelId);
 			}
 		});
 

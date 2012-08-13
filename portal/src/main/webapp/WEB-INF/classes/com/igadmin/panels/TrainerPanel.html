@@ -34,28 +34,28 @@
 					<label>Contact Information 
 					<span class="small">Primary phone</span>
 					</label> 
-					<input class="phNum" maxlength="25" type="text" wicket:id="phonePrimary" /> 
+					<input class="phNum" maxlength="25" type="text" wicket:id="phonePrimary.number" onChange="formatPhone(this)/"> 
 				</div>
 				
 				<div class="form_input_line">
 					<label>&nbsp; 
 					<span class="small">Alternate phone</span>
 					</label> 
-					<input class="phNum" maxlength="25" type="text" wicket:id="phoneSecondary" /> 
+					<input class="phNum" maxlength="25" type="text" wicket:id="phoneSecondary.number" onChange="formatPhone(this)/"> 
 				</div>
 
 				<div class="form_input_line">
 					<label>&nbsp; 
 					<span class="small">Email address</span>
 					</label> 
-					<input maxlength="100" type="email" wicket:id="emailAddress" /> 
+					<input maxlength="100" type="text" wicket:id="emailAddress" /> 
 				</div>
 
 				<div class="form_input_line">				
 					<label>Location 
 						<span class="small">Choose Gym Location</span>
 					</label> 
-					<select style="width:300px;" wicket:id="location"></select> 
+					<select style="width:300px;" wicket:id="locationKey"></select> 
 				</div>
 
 				<div class="form_input_line">				
@@ -85,7 +85,7 @@
 				</div>
 
 				<div class="form_input_line">
-					<input class="submitButton" type="submit" value="Add Trainer" />
+					<input class="submitButton" type="submit" value="Save Trainer" />
 				</div>				
 			</fieldset>
 		</form>

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.googlecode.objectify.Key;
 import com.igadmin.data.utils.StorageUtils;
 
 public class TrainerTest
@@ -40,7 +41,7 @@ public class TrainerTest
 
 		Trainer trainer = new Trainer();
 		trainer.setNameFirst("Mario");
-		trainer.setLocation(location);
+		trainer.setLocationKey(new Key<Location>(Location.class, location.getId()));
 		
 		dao.ofy().put(trainer);
 		Assert.assertNotNull("Failed to write trainer object to DB", trainer.getId());
@@ -58,19 +59,19 @@ public class TrainerTest
 		
 		Trainer trainer = new Trainer();
 		trainer.setNameFirst("Mario");
-		trainer.setLocation(location);
+		trainer.setLocationKey(new Key<Location>(Location.class, location.getId()));
 		dao.ofy().put(trainer);
 		Assert.assertNotNull("Failed to write trainer object to DB", trainer.getId());
 		
 		Client client1 = new Client();
-		client1.setLocation(location);
-		client1.setTrainer(trainer);
+		client1.setLocationKey(new Key<Location>(Location.class, location.getId()));
+		client1.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client1);
 		Assert.assertNotNull("Failed to write client1 object to DB", client1.getId());
 
 		Client client2 = new Client();
-		client2.setLocation(location);
-		client2.setTrainer(trainer);
+		client2.setLocationKey(new Key<Location>(Location.class, location.getId()));
+		client2.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client2);
 		Assert.assertNotNull("Failed to write client2 object to DB", client2.getId());
 
@@ -93,19 +94,19 @@ public class TrainerTest
 		
 		Trainer trainer = new Trainer();
 		trainer.setNameFirst("Mario");
-		trainer.setLocation(location);
+		trainer.setLocationKey(new Key<Location>(Location.class, location.getId()));
 		dao.ofy().put(trainer);
 		Assert.assertNotNull("Failed to write trainer object to DB", trainer.getId());
 		
 		Client client1 = new Client();
-		client1.setLocation(location);
-		client1.setTrainer(trainer);
+		client1.setLocationKey(new Key<Location>(Location.class, location.getId()));
+		client1.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client1);
 		Assert.assertNotNull("Failed to write client1 object to DB", client1.getId());
 
 		Client client2 = new Client();
-		client2.setLocation(location);
-		client2.setTrainer(trainer);
+		client2.setLocationKey(new Key<Location>(Location.class, location.getId()));
+		client2.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client2);
 		Assert.assertNotNull("Failed to write client2 object to DB", client2.getId());
 
@@ -117,13 +118,13 @@ public class TrainerTest
 		
 		Trainer trainer2 = new Trainer();
 		trainer2.setNameFirst("Calisto");
-		trainer2.setLocation(location);
+		trainer2.setLocationKey(new Key<Location>(Location.class, location.getId()));
 		dao.ofy().put(trainer2);
 		Assert.assertNotNull("Failed to write trainer2 object to DB", trainer2.getId());
 		
 		Client client3 = new Client();
-		client3.setLocation(location);
-		client3.setTrainer(trainer2);
+		client3.setLocationKey(new Key<Location>(Location.class, location.getId()));
+		client3.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client3);
 		Assert.assertNotNull("Failed to write client3 object to DB", client3.getId());
 		List<Client> clients1 = StorageUtils.getClientListForTrainer(trainer2);
@@ -132,5 +133,4 @@ public class TrainerTest
 		List<Client> clients = StorageUtils.getClientListForTrainer(newTrainer);
 		Assert.assertEquals("Client list has wrong length", 2, clients.size());
 	}
-
 }

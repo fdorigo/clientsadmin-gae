@@ -16,15 +16,17 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+import com.igadmin.auth.AppSession;
 import com.igadmin.data.Location;
+import com.igadmin.data.Trainer;
 import com.igadmin.data.utils.StorageUtils;
-import com.igadmin.models.ReloadingLocationModel;
+import com.igadmin.models.ReloadingTrainerModel;
 
-public class SearchLocation extends Panel
+public class SearchTrainer extends Panel
 {
 	private static final long	serialVersionUID	= -3401769395236719002L;
 
-	public SearchLocation(String id)
+	public SearchTrainer(String id)
 	{
 		super(id);
 		initComponents();
@@ -32,14 +34,19 @@ public class SearchLocation extends Panel
 
 	private void initComponents()
 	{
-		ISortableDataProvider<Location> dataProvider = new SortableDataProvider<Location>()
+		ISortableDataProvider<Trainer> dataProvider = new SortableDataProvider<Trainer>()
 		{
 			private static final long	serialVersionUID	= 7723194267973185458L;
 
 			@Override
-			public Iterator<? extends Location> iterator(int first, int count)
+			public Iterator<? extends Trainer> iterator(int first, int count)
 			{
-				return StorageUtils.getLocationList(first, count).iterator();
+				Location loc = ((AppSession) getSession()).getSessionLocation();
+
+				if (loc != null)
+					return StorageUtils.getTrainerListForLocation(loc.getId(), first, count).iterator();
+				else
+					return StorageUtils.getTrainerListForLocation(null, first, count).iterator();
 			}
 
 			@Override
@@ -51,27 +58,28 @@ public class SearchLocation extends Panel
 			}
 
 			@Override
-			public IModel<Location> model(Location object)
+			public IModel<Trainer> model(Trainer object)
 			{
-				return new ReloadingLocationModel(object);
+				return new ReloadingTrainerModel(object);
 			}
 		};
 
-		List<IColumn<Location>> columns = new ArrayList<IColumn<Location>>();
-		columns.add(new PropertyColumn<Location>(new Model<String>("Location Name"), "locationName"));
-		columns.add(new PropertyColumn<Location>(new Model<String>("Email"), "emailAddress"));
-		columns.add(new AbstractColumn<Location>(new Model<String>("Edit"), "edit")
+		List<IColumn<Trainer>> columns = new ArrayList<IColumn<Trainer>>();
+		columns.add(new PropertyColumn<Trainer>(new Model<String>("First Name"), "nameFirst"));
+		columns.add(new PropertyColumn<Trainer>(new Model<String>("Last Name"), "nameLast"));
+		columns.add(new PropertyColumn<Trainer>(new Model<String>("Email"), "emailAddress"));
+		columns.add(new AbstractColumn<Trainer>(new Model<String>("Edit"), "edit")
 		{
 			private static final long	serialVersionUID	= -3618555427333914107L;
 
 			@Override
-			public void populateItem(Item<ICellPopulator<Location>> cellItem, String componentId, IModel<Location> rawModel)
+			public void populateItem(Item<ICellPopulator<Trainer>> cellItem, String componentId, IModel<Trainer> rawModel)
 			{
-				cellItem.add(new SearchLocationEditPanel(componentId, rawModel));
+				cellItem.add(new SearchTrainerEditPanel(componentId, rawModel));
 			}
 		});
 
-		DefaultDataTable<Location> dt = new DefaultDataTable<Location>("searchLocationDataTable", columns, dataProvider, 10);
+		DefaultDataTable<Trainer> dt = new DefaultDataTable<Trainer>("searchTrainerDataTable", columns, dataProvider, 10);
 		add(dt);
 	}
 }

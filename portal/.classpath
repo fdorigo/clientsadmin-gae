@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/appengine-remote-api.jar"/>
+	<classpathentry kind="lib" path="/Users/fdorigo/personal/gae/clientsadmin-gae/portal/lib/libphonenumber-5.0v1.5.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

@@ -10,30 +10,29 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import com.igadmin.data.Client;
-import com.igadmin.data.GymPackage;
-import com.igadmin.data.Trainer;
+import com.igadmin.data.TrainingPackage;
 import com.igadmin.form.SelectOption;
 
 public class AddPackage extends Panel
 {
 	@SuppressWarnings("unused")
-	private static final Logger LOG = Logger.getLogger(AddClient.class);
+	private static final Logger	LOG					= Logger.getLogger(AddClient.class);
 
-	private static final long serialVersionUID = -2525099796767054006L;
+	private static final long	serialVersionUID	= -2525099796767054006L;
 
-	private GymPackage packageModel;
-	
-	private SelectOption selectedClient;
-	private SelectOption selectedTrainer;
-	
+	private TrainingPackage		packageModel;
+
+	private SelectOption		selectedClient;
+	private SelectOption		selectedTrainer;
+
 	@SuppressWarnings("unused")
-	private List<Client> listOfClients = new ArrayList<Client>();
-	private List<Trainer> listOfTrainers = new ArrayList<Trainer>();
+	private List<Client>		listOfClients		= new ArrayList<Client>();
+	//private List<Trainer>		listOfTrainers		= new ArrayList<Trainer>();
 
 	public AddPackage(String id)
 	{
 		super(id);
-		packageModel = new GymPackage();
+		packageModel = new TrainingPackage();
 		initComponents();
 	}
 
@@ -41,20 +40,19 @@ public class AddPackage extends Panel
 	{
 		add(new FeedbackPanel("feedback"));
 
-		Form<GymPackage> form = new Form<GymPackage>("form", new CompoundPropertyModel<GymPackage>(packageModel)) 
+		Form<TrainingPackage> form = new Form<TrainingPackage>("form", new CompoundPropertyModel<TrainingPackage>(packageModel))
 		{
-			private static final long serialVersionUID = 1617572834759513718L;
+			private static final long	serialVersionUID	= 1617572834759513718L;
 
 			@Override
 			protected void onSubmit()
 			{
-				//TODO add package to DB
+				// TODO add package to DB
 			}
 		};
 
 		add(form);
 
-		
 	}
 
 	public SelectOption getSelectedClient()

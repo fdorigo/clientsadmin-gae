@@ -18,6 +18,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.google.appengine.api.datastore.PhoneNumber;
 import com.igadmin.data.DAO;
 import com.igadmin.data.Location;
 import com.igadmin.data.Phone;
@@ -44,9 +45,10 @@ public class LocationPanel extends Panel
 	 * @param panelId
 	 * @param params
 	 */
-	public LocationPanel(String panelId, PageParameters params)
+	public LocationPanel(final String panelId, final PageParameters params)
 	{
 		super(panelId);
+		
 		if (!params.getValues("locationId").isEmpty())
 		{
 			try
@@ -60,10 +62,10 @@ public class LocationPanel extends Panel
 				LOG.warn("Invalid parameter received: " + e.getMessage());
 			}
 		}
+		
 		init();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void init()
 	{
 		add(new FeedbackPanel("feedback"));
@@ -148,13 +150,13 @@ public class LocationPanel extends Panel
 
 				if (model.getPhonePrimary() != null)
 				{
-					Phone primary = new Phone(model.getPhonePrimary().getNumber(), model.getPhonePrimary().getExtension());
+					Phone primary = new Phone(model.getPhonePrimary().getNumber());
 					location.setPhonePrimary(primary);
 				}
 				
 				if (model.getPhoneSecondary() != null)
 				{
-					Phone secondary = new Phone(model.getPhoneSecondary().getNumber(), model.getPhoneSecondary().getExtension());
+					Phone secondary = new Phone(model.getPhoneSecondary().getNumber());
 					location.setPhoneSecondary(secondary);
 				}
 
@@ -190,10 +192,8 @@ public class LocationPanel extends Panel
 		form.add(new RequiredTextField<String>(Location.ADDRESS_ZIP_PROPERTY).add(jsModifier));
 		
 		form.add(new RequiredTextField<String>(Location.EMAIL_ADDRESS).add(jsModifier));
-		form.add(new RequiredTextField("phonePrimaryNumber", locationModel.bind("phonePrimary.number")).add(jsModifier));
-		form.add(new TextField("phonePrimaryExtension", locationModel.bind("phonePrimary.extension")).add(jsModifier));
-		form.add(new TextField("phoneSecondaryNumber", locationModel.bind("phoneSecondary.number")).add(jsModifier));
-		form.add(new TextField("phoneSecondaryExtension", locationModel.bind("phoneSecondary.number")).add(jsModifier));
+		form.add(new RequiredTextField<PhoneNumber>("phonePrimary.number").add(jsModifier));
+		form.add(new TextField<PhoneNumber>("phoneSecondary.number").add(jsModifier));
 
 		// TODO add date picker
 		// form.add(new
@@ -209,14 +209,4 @@ public class LocationPanel extends Panel
 	{
 		this.selectedState = selectedState;
 	}
-
-//	public Location getSelectedLocation()
-//	{
-//		return selectedLocation;
-//	}
-//
-//	public void setSelectedLocation(Location selectedLocation)
-//	{
-//		this.selectedLocation = selectedLocation;
-//	}
 }

@@ -58,6 +58,7 @@ public class Location implements Serializable
 
 	@Indexed
 	private String				emailAddress;
+
 	@Embedded
 	private Phone				phonePrimary;
 	@Embedded
@@ -70,7 +71,7 @@ public class Location implements Serializable
 		{
 			return false;
 		}
-		
+
 		if (this == obj)
 		{
 			return true;
@@ -227,4 +228,5 @@ public class Location implements Serializable
 	{
 		this.phoneSecondary = phoneSecondary;
 	}
+
 }

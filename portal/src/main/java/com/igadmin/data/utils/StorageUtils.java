@@ -5,19 +5,25 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Query;
 import com.igadmin.auth.User;
 import com.igadmin.data.Client;
 import com.igadmin.data.DAO;
-import com.igadmin.data.GymPackage;
-import com.igadmin.data.GymSession;
 import com.igadmin.data.Location;
 import com.igadmin.data.Trainer;
+import com.igadmin.data.TrainingPackage;
+import com.igadmin.data.TrainingSession;
 
 public class StorageUtils
 {
 	private static final Logger	LOG	= Logger.getLogger(StorageUtils.class);
 
+	public static Key<Location> getlocationKey(Long id)
+	{
+		return new Key<Location>(Location.class, id);
+	}
+	
 	public static List<Location> getLocationList()
 	{
 		final DAO dao = new DAO();
@@ -49,6 +55,40 @@ public class StorageUtils
 
 		return locations.list();
 	}
+	
+	
+	public static List<Trainer> getTrainerListForLocation(final Long locationId, int first, int count)
+	{
+		final DAO dao = new DAO();
+		final Query<Trainer> trainers;
+
+		if (locationId != null && locationId > 0)
+		{
+			trainers = dao.ofy().query(Trainer.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
+		}
+		else
+		{
+			trainers = dao.ofy().query(Trainer.class).offset(first).limit(count);
+		}
+
+		if (LOG.isTraceEnabled())
+		{
+			if (trainers != null)
+			{
+				if (locationId != null)
+				{
+					LOG.trace(locationId + " has " + trainers.count() + " trainers");
+				}
+				else
+				{
+					LOG.trace("All locations have " + trainers.count() + " trainers");
+				}
+			}
+		}
+
+		return trainers.list();
+	}
+
 
 	public static List<Client> getClientListForTrainer(final Trainer trainer)
 	{
@@ -98,10 +138,10 @@ public class StorageUtils
 		return trainers.list();
 	}
 
-	public static List<GymPackage> getPackageListForClient(final Client client)
+	public static List<TrainingPackage> getPackageListForClient(final Client client)
 	{
 		final DAO dao = new DAO();
-		final Query<GymPackage> packages = dao.ofy().query(GymPackage.class).filter("client.id =", client.getId());
+		final Query<TrainingPackage> packages = dao.ofy().query(TrainingPackage.class).filter("client.id =", client.getId());
 
 		if (LOG.isTraceEnabled())
 		{
@@ -114,10 +154,10 @@ public class StorageUtils
 		return packages.list();
 	}
 
-	public static List<GymSession> getSessionListForPackage(final GymPackage pack)
+	public static List<TrainingSession> getSessionListForPackage(final TrainingPackage pack)
 	{
 		final DAO dao = new DAO();
-		final Query<GymSession> sessions = dao.ofy().query(GymSession.class).filter("package.id =", pack.getId());
+		final Query<TrainingSession> sessions = dao.ofy().query(TrainingSession.class).filter("package.id =", pack.getId());
 
 		if (LOG.isTraceEnabled())
 		{
@@ -141,10 +181,10 @@ public class StorageUtils
 	 *            the end date of the search
 	 * @return the list of session within the specified time range
 	 */
-	public static List<GymSession> getClientSessionListForDateRange(final Client client, final Date start, final Date end)
+	public static List<TrainingSession> getClientSessionListForDateRange(final Client client, final Date start, final Date end)
 	{
 		final DAO dao = new DAO();
-		final Query<GymSession> sessions = dao.ofy().query(GymSession.class).filter("client.id =", client.getId()).filter("client.dateTrained >=", start).filter("client.dateTrained <=", end);
+		final Query<TrainingSession> sessions = dao.ofy().query(TrainingSession.class).filter("client.id =", client.getId()).filter("client.dateTrained >=", start).filter("client.dateTrained <=", end);
 
 		if (LOG.isTraceEnabled())
 		{

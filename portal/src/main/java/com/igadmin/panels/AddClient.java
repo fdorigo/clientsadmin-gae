@@ -36,7 +36,7 @@ public class AddClient extends Panel
 	private SelectOption		selectedTrainer;
 	private List<SelectOption>	listOfTrainers;
 	private final Location		location;
-	private final Date			birthDate			= new Date();
+	//private final Date			birthDate			= new Date();
 
 	public AddClient(String panelId)
 	{

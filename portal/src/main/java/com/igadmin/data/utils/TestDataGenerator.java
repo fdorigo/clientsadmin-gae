@@ -5,6 +5,7 @@ import com.igadmin.data.DAO;
 import com.igadmin.data.Location;
 import com.igadmin.data.Trainer;
 
+@Deprecated
 public class TestDataGenerator
 {
 
@@ -28,7 +29,7 @@ public class TestDataGenerator
 		trainer.setNameFirst("Darth");
 		trainer.setNameLast("Vader");
 		trainer.setCompRate(50.0);
-		trainer.setLocation(createLocation());
+		//trainer.setLocationKey(createLocation().getId());
 		
 		dao.ofy().put(trainer);
 		
@@ -42,8 +43,8 @@ public class TestDataGenerator
 		
 		client.setNameFirst("Joe");
 		client.setNameLast("Butterball");
-		client.setTrainer(createTrainer());
-		client.setLocation(createLocation());
+		//client.setTrainer(createTrainer());
+		//client.setLocation(createLocation());
 		
 		dao.ofy().put(client);
 		

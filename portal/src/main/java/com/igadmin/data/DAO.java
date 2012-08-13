@@ -1,5 +1,6 @@
 package com.igadmin.data;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.DAOBase;
 import com.igadmin.auth.User;
@@ -12,8 +13,8 @@ public class DAO extends DAOBase
         ObjectifyService.register(Client.class);
         ObjectifyService.register(Address.class);
         ObjectifyService.register(Phone.class);
-        ObjectifyService.register(GymPackage.class);
-        ObjectifyService.register(GymSession.class);
+        ObjectifyService.register(TrainingPackage.class);
+        ObjectifyService.register(TrainingSession.class);
         ObjectifyService.register(User.class);
    }
 
@@ -59,5 +60,15 @@ public class DAO extends DAOBase
 		if (found == null)
 			return new Client();
 		else return found;
+	}
+
+	public Location getOrCreateLocation(Key<Location> locationKey)
+	{
+        Location found = ofy().find(locationKey);
+        
+        if (found == null)
+            return new Location();
+        else
+            return found;
 	}
 }
