@@ -1,4 +1,4 @@
-package com.igadmin.panels;
+package com.igadmin.panels.table;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -7,13 +7,13 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.igadmin.HomePage;
 import com.igadmin.TabPanelIndex;
-import com.igadmin.data.Trainer;
+import com.igadmin.data.Client;
 
-public class SearchTrainerEditPanel extends Panel
+public class SearchClientEditPanel extends Panel
 {
 	private static final long	serialVersionUID	= 7330309210330735488L;
 
-	public SearchTrainerEditPanel(String id, IModel<?> model)
+	public SearchClientEditPanel(String id, IModel<?> model)
 	{
 		super(id, model);
 		add(new Link<Void>("l")
@@ -23,10 +23,10 @@ public class SearchTrainerEditPanel extends Panel
 			@Override
 			public void onClick()
 			{
-				Trainer trainer = (Trainer) SearchTrainerEditPanel.this.getDefaultModelObject();
+				Client client = (Client) SearchClientEditPanel.this.getDefaultModelObject();
 				PageParameters params = new PageParameters();
-				params.add("newTabId", TabPanelIndex.TRAINER.getIndex());
-				params.add("trainerId", trainer.getId());
+				params.add("newTabId", TabPanelIndex.CLIENT.getIndex());
+				params.add("clientId", client.getId());
 				setResponsePage(HomePage.class, params);
 			}
 		});

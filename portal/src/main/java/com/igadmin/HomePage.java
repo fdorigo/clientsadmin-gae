@@ -15,11 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import com.igadmin.auth.LoginPage;
 import com.igadmin.auth.LogoutPage;
-import com.igadmin.panels.AddClient;
+import com.igadmin.panels.ClientPanel;
 import com.igadmin.panels.LocationPanel;
-import com.igadmin.panels.SearchLocation;
-import com.igadmin.panels.SearchTrainer;
 import com.igadmin.panels.TrainerPanel;
+import com.igadmin.panels.table.SearchClient;
+import com.igadmin.panels.table.SearchLocation;
+import com.igadmin.panels.table.SearchTrainer;
 
 //@AuthorizeInstantiation("ADMIN")
 public class HomePage extends BasePage
@@ -116,14 +117,14 @@ public class HomePage extends BasePage
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("Add Client"))
+		tabs.add(new AbstractTab(new Model<String>("Clients"))
 		{
 			private static final long	serialVersionUID	= 1L;
 
 			@Override
 			public WebMarkupContainer getPanel(String panelId)
 			{
-				return new AddClient(panelId);
+				return new ClientPanel(panelId, p);
 			}
 		});
 
@@ -146,6 +147,17 @@ public class HomePage extends BasePage
 			public WebMarkupContainer getPanel(String panelId)
 			{
 				return new SearchTrainer(panelId);
+			}
+		});
+
+		tabs.add(new AbstractTab(new Model<String>("List Clients"))
+		{
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			public WebMarkupContainer getPanel(String panelId)
+			{
+				return new SearchClient(panelId);
 			}
 		});
 

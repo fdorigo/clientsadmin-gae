@@ -1,4 +1,4 @@
-package com.igadmin.panels;
+package com.igadmin.panels.table;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,16 +17,16 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import com.igadmin.auth.AppSession;
+import com.igadmin.data.Client;
 import com.igadmin.data.Location;
-import com.igadmin.data.Trainer;
 import com.igadmin.data.utils.StorageUtils;
-import com.igadmin.models.ReloadingTrainerModel;
+import com.igadmin.models.ReloadingClientModel;
 
-public class SearchTrainer extends Panel
+public class SearchClient extends Panel
 {
-	private static final long	serialVersionUID	= -3401769395236719002L;
+	private static final long	serialVersionUID	= 2594398770205873773L;
 
-	public SearchTrainer(String id)
+	public SearchClient(String id)
 	{
 		super(id);
 		initComponents();
@@ -34,19 +34,19 @@ public class SearchTrainer extends Panel
 
 	private void initComponents()
 	{
-		ISortableDataProvider<Trainer> dataProvider = new SortableDataProvider<Trainer>()
+		ISortableDataProvider<Client> dataProvider = new SortableDataProvider<Client>()
 		{
 			private static final long	serialVersionUID	= 7723194267973185458L;
 
 			@Override
-			public Iterator<? extends Trainer> iterator(int first, int count)
+			public Iterator<? extends Client> iterator(int first, int count)
 			{
 				Location loc = ((AppSession) getSession()).getSessionLocation();
 
 				if (loc != null)
-					return StorageUtils.getTrainerListForLocation(loc.getId(), first, count).iterator();
+					return StorageUtils.getClientListForLocation(loc.getId(), first, count).iterator();
 				else
-					return StorageUtils.getTrainerListForLocation(null, first, count).iterator();
+					return StorageUtils.getClientListForLocation(null, first, count).iterator();
 			}
 
 			@Override
@@ -58,28 +58,28 @@ public class SearchTrainer extends Panel
 			}
 
 			@Override
-			public IModel<Trainer> model(Trainer object)
+			public IModel<Client> model(Client object)
 			{
-				return new ReloadingTrainerModel(object);
+				return new ReloadingClientModel(object);
 			}
 		};
 
-		List<IColumn<Trainer>> columns = new ArrayList<IColumn<Trainer>>();
-		columns.add(new PropertyColumn<Trainer>(new Model<String>("First Name"), "nameFirst"));
-		columns.add(new PropertyColumn<Trainer>(new Model<String>("Last Name"), "nameLast"));
-		columns.add(new PropertyColumn<Trainer>(new Model<String>("Email"), "emailAddress"));
-		columns.add(new AbstractColumn<Trainer>(new Model<String>("Edit"), "edit")
+		List<IColumn<Client>> columns = new ArrayList<IColumn<Client>>();
+		columns.add(new PropertyColumn<Client>(new Model<String>("First Name"), "nameFirst"));
+		columns.add(new PropertyColumn<Client>(new Model<String>("Last Name"), "nameLast"));
+		columns.add(new PropertyColumn<Client>(new Model<String>("Email"), "emailAddress"));
+		columns.add(new AbstractColumn<Client>(new Model<String>("Edit"), "edit")
 		{
 			private static final long	serialVersionUID	= -3618555427333914107L;
 
 			@Override
-			public void populateItem(Item<ICellPopulator<Trainer>> cellItem, String componentId, IModel<Trainer> rawModel)
+			public void populateItem(Item<ICellPopulator<Client>> cellItem, String componentId, IModel<Client> rawModel)
 			{
-				cellItem.add(new SearchTrainerEditPanel(componentId, rawModel));
+				cellItem.add(new SearchClientEditPanel(componentId, rawModel));
 			}
 		});
 
-		DefaultDataTable<Trainer> dt = new DefaultDataTable<Trainer>("searchTrainerDataTable", columns, dataProvider, 10);
+		DefaultDataTable<Client> dt = new DefaultDataTable<Client>("searchClientDataTable", columns, dataProvider, 10);
 		add(dt);
 	}
 }

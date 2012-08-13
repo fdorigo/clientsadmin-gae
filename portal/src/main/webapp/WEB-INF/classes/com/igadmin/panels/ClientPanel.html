@@ -7,8 +7,8 @@
 		
 		<form wicket:id="form">
 			<fieldset>
-				<h1>Add Client</h1>
-				<p>Add a new client to the database</p>
+				<h1>Client Settings</h1>
+				<p>Edit existing client information or add a new client to the database</p>
 
 				<div class="form_input_line">
 					<label>Name 
@@ -39,31 +39,40 @@
 				</div>
 				
 				<div class="form_input_line">
+					<label>&nbsp;
+					<span class="small">Registration Date</span>
+					</label> 
+					<input style="width:120px;" maxlength="25" type="text" wicket:id="dateJoined" /> 
+				</div>
+
+				<div class="form_input_line">
 					<label>Contact Information 
 					<span class="small">Primary phone</span>
 					</label> 
-					<input class="phNum" maxlength="25" type="text" wicket:id="phonePrimary" /> 
+					<input class="phNum" maxlength="25" type="text" wicket:id="phonePrimary.number" /> 
 				</div>
 				
 				<div class="form_input_line">
 					<label>&nbsp; 
 					<span class="small">Alternate phone</span>
 					</label> 
-					<input class="phNum" maxlength="25" type="text" wicket:id="phoneSecondary" /> 
+					<input class="phNum" maxlength="25" type="text" wicket:id="phoneSecondary.number" /> 
 				</div>
 
 				<div class="form_input_line">
 					<label>&nbsp; 
 					<span class="small">Email address</span>
 					</label> 
-					<input maxlength="100" type="email" wicket:id="emailAddress" /> 
+					<input maxlength="100" type="text" wicket:id="emailAddress" /> 
 				</div>
 
 				<div class="form_input_line">				
 					<label>Address 
-						<span class="small">Specify the location address</span>
+						<span class="small">Specify the home address</span>
 					</label> 
-					<input type="text" wicket:id="addressStreet" /> 
+					<input style="width:80px;" type="text" wicket:id="addressNum" /> 
+					<input style="width:260px;" type="text" wicket:id="addressStreet" /> 
+					<input style="width:80px;" type="text" wicket:id="addressApt" /> 
 				</div>
 
 				<div class="form_input_line">
@@ -77,9 +86,9 @@
 
 				<div class="form_input_line">				
 					<label>Primary Trainer 
-						<span class="small">Specify the primary trainer</span>
+						<span class="small">Select the primary trainer</span>
 					</label> 
-					<select style="width:310px;" wicket:id="primaryTrainer"></select> 
+					<select style="width:310px;" wicket:id="trainerKey"></select> 
 				</div>
 
 				<div class="form_input_line">

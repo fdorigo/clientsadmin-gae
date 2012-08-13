@@ -16,7 +16,7 @@ import com.igadmin.form.SelectOption;
 public class AddPackage extends Panel
 {
 	@SuppressWarnings("unused")
-	private static final Logger	LOG					= Logger.getLogger(AddClient.class);
+	private static final Logger	LOG					= Logger.getLogger(ClientPanel.class);
 
 	private static final long	serialVersionUID	= -2525099796767054006L;
 

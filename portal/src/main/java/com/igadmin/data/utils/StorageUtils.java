@@ -209,4 +209,36 @@ public class StorageUtils
 
 		return null;
 	}
+
+	public static List<Client> getClientListForLocation(Long locationId, int first, int count)
+	{
+		final DAO dao = new DAO();
+		final Query<Client> clients;
+
+		if (locationId != null && locationId > 0)
+		{
+			clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
+		}
+		else
+		{
+			clients = dao.ofy().query(Client.class).offset(first).limit(count);
+		}
+
+		if (LOG.isTraceEnabled())
+		{
+			if (clients != null)
+			{
+				if (locationId != null)
+				{
+					LOG.trace(locationId + " has " + clients.count() + " clients");
+				}
+				else
+				{
+					LOG.trace("All locations have " + clients.count() + " clients");
+				}
+			}
+		}
+
+		return clients.list();
+	}
 }

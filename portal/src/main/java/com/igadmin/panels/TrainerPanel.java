@@ -149,7 +149,7 @@ public class TrainerPanel extends Panel
 		form.add(new TextField<String>(Trainer.ADDRESS_APT_PROPERTY).add(jsModifier));
 		form.add(new RequiredTextField<String>(Trainer.ADDRESS_CITY_PROPERTY).add(jsModifier));
 		ChoiceRenderer<SelectOption> choiceRenderer = new ChoiceRenderer<SelectOption>("value", "key");
-		DropDownChoice<SelectOption> fieldState = new DropDownChoice<SelectOption>(Location.ADDRESS_STATE_PROPERTY, new PropertyModel<SelectOption>(this, "selectedState"), stateChoiceModel,
+		DropDownChoice<SelectOption> fieldState = new DropDownChoice<SelectOption>(Trainer.ADDRESS_STATE_PROPERTY, new PropertyModel<SelectOption>(this, "selectedState"), stateChoiceModel,
 				choiceRenderer);
 		fieldState.setRequired(true);
 		form.add(fieldState.add(jsModifier));
@@ -165,7 +165,6 @@ public class TrainerPanel extends Panel
 		fieldLocation.setRequired(true);
 
 		form.add(new RequiredTextField<Double>(Trainer.COMP_RATE_PROPERTY).add(new MinimumValidator<Double>(0.0)).add(new MaximumValidator<Double>(100.0)));
-
 	}
 
 	public SelectOption getSelectedState()

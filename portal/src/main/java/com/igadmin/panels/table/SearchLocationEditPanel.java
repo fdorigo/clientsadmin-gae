@@ -1,4 +1,4 @@
-package com.igadmin.panels;
+package com.igadmin.panels.table;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;

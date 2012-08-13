@@ -71,4 +71,14 @@ public class DAO extends DAOBase
         else
             return found;
 	}
+
+	public Trainer getOrCreateTrainer(Key<Trainer> trainerKey)
+	{
+    	Trainer found = ofy().find(trainerKey);
+        
+    	if (found == null)
+            return new Trainer();
+        else
+            return found;
+	}
 }

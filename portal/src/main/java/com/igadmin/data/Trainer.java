@@ -7,10 +7,10 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
-import com.google.appengine.api.datastore.PhoneNumber;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.NotSaved;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -77,6 +77,9 @@ public class Trainer implements Serializable
 	// private List<Key<Client>> clientKeys;
 
 	// private List<Key<TrainingSession>> trainingSessionKeys;
+
+	@NotSaved
+	private String				trainerDisplayName;
 
 	@Id
 	private Long				id;
@@ -254,5 +257,10 @@ public class Trainer implements Serializable
 	public void setPhoneSecondary(Phone phoneTrainerSecondary)
 	{
 		this.phoneSecondary = phoneTrainerSecondary;
+	}
+
+	public String getTrainerDisplayName()
+	{
+		return this.nameFirst + this.nameLast;
 	}
 }

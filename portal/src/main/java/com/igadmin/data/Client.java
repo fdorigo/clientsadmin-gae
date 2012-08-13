@@ -81,8 +81,6 @@ public class Client implements Serializable
 	private Key<Location>		locationKey;
 	@Indexed
 	private Key<Trainer>		trainerKey;
-	// private List<TrainingPackage> trainingPackageKeys;
-	// private List<TrainingSession> trainingSessionKeys;
 
 	@Id
 	private Long				id;
@@ -257,23 +255,7 @@ public class Client implements Serializable
 	{
 		this.locationKey = location;
 	}
-
-	// public List<GymPackage> getPackages()
-	// {
-	// return packages;
-	// }
-	// public void setPackages(List<GymPackage> packages)
-	// {
-	// this.packages = packages;
-	// }
-	// public List<GymSession> getSessions()
-	// {
-	// return sessions;
-	// }
-	// public void setSessions(List<GymSession> sessions)
-	// {
-	// this.sessions = sessions;
-	// }
+ 
 	public String getName()
 	{
 		return this.nameFirst + " " + this.nameLast;

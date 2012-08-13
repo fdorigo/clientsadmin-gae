@@ -8,8 +8,9 @@ h1,h2,h3 {
 }
 
 #logo h1 {
-	font-size: 36pt;
+	font-size: 24pt;
 	display: inline;
+	vertical-align: top;
 }
 
 #logo img {
