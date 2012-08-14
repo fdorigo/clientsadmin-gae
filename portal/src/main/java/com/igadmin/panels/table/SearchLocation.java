@@ -11,11 +11,18 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.igadmin.HomePage;
+import com.igadmin.TabPanelIndex;
 import com.igadmin.data.Location;
 import com.igadmin.data.utils.StorageUtils;
 import com.igadmin.models.ReloadingLocationModel;
@@ -67,11 +74,33 @@ public class SearchLocation extends Panel
 			@Override
 			public void populateItem(Item<ICellPopulator<Location>> cellItem, String componentId, IModel<Location> rawModel)
 			{
-				cellItem.add(new SearchLocationEditPanel(componentId, rawModel));
+				cellItem.add(makeProductLinkFragment(componentId, rawModel));
 			}
 		});
 
 		DefaultDataTable<Location> dt = new DefaultDataTable<Location>("searchLocationDataTable", columns, dataProvider, 10);
 		add(dt);
+	}
+	
+	private Fragment makeProductLinkFragment(String componentId, final IModel<Location> rowModel)
+	{
+		Fragment productLinkFragment = new Fragment(componentId, "f1", SearchLocation.this);
+		Link<Void> l = new Link<Void>("l")
+		{
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			public void onClick()
+			{
+				Location l = rowModel.getObject();
+				PageParameters params = new PageParameters();
+				params.add("newTabId", TabPanelIndex.LOCATION.getIndex());
+				params.add("locationId", l.getId());
+				setResponsePage(HomePage.class, params);
+			}
+		};
+		productLinkFragment.add(l);
+		l.add(new Label("label", new PropertyModel<String>(rowModel, Location.NAME_PROPERTY)));
+		return productLinkFragment;
 	}
 }

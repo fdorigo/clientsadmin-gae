@@ -11,11 +11,18 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.ISortableDataProvider;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import com.igadmin.HomePage;
+import com.igadmin.TabPanelIndex;
 import com.igadmin.auth.AppSession;
 import com.igadmin.data.Location;
 import com.igadmin.data.Trainer;
@@ -75,11 +82,34 @@ public class SearchTrainer extends Panel
 			@Override
 			public void populateItem(Item<ICellPopulator<Trainer>> cellItem, String componentId, IModel<Trainer> rawModel)
 			{
-				cellItem.add(new SearchTrainerEditPanel(componentId, rawModel));
+				cellItem.add(makeProductLinkFragment(componentId, rawModel));
 			}
 		});
 
 		DefaultDataTable<Trainer> dt = new DefaultDataTable<Trainer>("searchTrainerDataTable", columns, dataProvider, 10);
 		add(dt);
 	}
+	
+	private Fragment makeProductLinkFragment(String componentId, final IModel<Trainer> rowModel)
+	{
+		Fragment productLinkFragment = new Fragment(componentId, "f1", SearchTrainer.this);
+		Link<Void> l = new Link<Void>("l")
+		{
+			private static final long	serialVersionUID	= 1L;
+
+			@Override
+			public void onClick()
+			{
+				Trainer trainer = rowModel.getObject();
+				PageParameters params = new PageParameters();
+				params.add("newTabId", TabPanelIndex.TRAINER.getIndex());
+				params.add("trainerId", trainer.getId());
+				setResponsePage(HomePage.class, params);
+			}
+		};
+		productLinkFragment.add(l);
+		l.add(new Label("label", new PropertyModel<String>(rowModel, "trainerDisplayName")));
+		return productLinkFragment;
+	}
+
 }

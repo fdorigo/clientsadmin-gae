@@ -261,6 +261,7 @@ public class Trainer implements Serializable
 
 	public String getTrainerDisplayName()
 	{
-		return this.nameFirst + this.nameLast;
+		this.trainerDisplayName = this.nameFirst + " " + this.nameLast;
+		return this.trainerDisplayName;
 	}
 }

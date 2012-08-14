@@ -11,6 +11,7 @@ import com.google.appengine.api.datastore.PhoneNumber;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.NotSaved;
 import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
@@ -82,6 +83,9 @@ public class Client implements Serializable
 	@Indexed
 	private Key<Trainer>		trainerKey;
 
+	@NotSaved
+	private String				clientDisplayName;
+	
 	@Id
 	private Long				id;
 
@@ -310,4 +314,11 @@ public class Client implements Serializable
 	{
 		this.trainerKey = trainerKey;
 	}
+
+	public String getClientDisplayName()
+	{
+		this.clientDisplayName = this.nameFirst + " " + this.nameLast;
+		return this.clientDisplayName;
+	}
+
 }

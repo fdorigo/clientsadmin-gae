@@ -27,9 +27,8 @@ body {
 
 #bd {
 	width: 800px;
+	height: 800px;
 	margin: 10px auto;
-	border: 1px dotted brown;
-	margin: 10px auto
 }
 
 #ct {
@@ -207,4 +206,22 @@ fieldset {
 
 .tabpanel div.tab-row a:hover {
 	background: #fff;
+}
+
+tr.even {
+	background-color: GreenYellow
+}
+
+tr.odd {
+	background-color: RoyalBlue
+}
+
+tr.navigation {
+	margin-top: 20px;
+	background-color: Yellow
+}
+
+tr.headers {
+	margin-top: 12px;
+	background-color: Pink
 }

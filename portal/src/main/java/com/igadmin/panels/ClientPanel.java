@@ -1,6 +1,5 @@
 package com.igadmin.panels;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -79,23 +78,27 @@ public class ClientPanel extends Panel
 	{
 		add(new FeedbackPanel("feedback"));
 
-		if (location != null)
+		listOfStates = FormUtils.initStateOptionList();
+
+		if (clientModel != null && !clientModel.getAddressState().isEmpty())
 		{
 			for (SelectOption o : listOfStates)
 			{
-				if (o.getValue().equals(location.getAddressState()))
+				if (o.getValue().equalsIgnoreCase(clientModel.getAddressState()))
 				{
 					selectedState = o;
 					LOG.debug("Found state: " + o.getValue());
 					break;
 				}
-				else if (o.getKey().equals(location.getAddressState()))
+				else if (o.getKey().equalsIgnoreCase(clientModel.getAddressState()))
 				{
 					selectedState = o;
 					LOG.debug("Found legacy state: " + o.getValue());
 					break;
 				}
 			}
+			
+			LOG.debug("Client Slected State: " + clientModel.getAddressState());
 		}
 
 		final CompoundPropertyModel<Client> clientPropertyModel = new CompoundPropertyModel<Client>(clientModel);
@@ -120,7 +123,6 @@ public class ClientPanel extends Panel
 
 		add(form);
 
-		listOfStates = FormUtils.initStateOptionList();
 
 		final IModel<List<SelectOption>> stateChoiceModel = new AbstractReadOnlyModel<List<SelectOption>>()
 		{
