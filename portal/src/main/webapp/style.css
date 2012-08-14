@@ -33,25 +33,21 @@ body {
 
 #ct {
 	width: 100%;
-	border: 1px dotted red;
 }
 
 #hd {
 	width: 100%;
 	height: 64px;
-	border: 1px dotted grey;
 }
 
 #nv {
 	width: 100%;
 	height: 24px;
-	border: 1px dotted grey;
 }
 
 #ft {
 	width: 100%;
 	height: 32px;
-	border: 1px dotted grey;
 }
 
 #logo {
@@ -73,6 +69,18 @@ body {
 	margin-left: 500px;
 	width: 250px;
 	list-style: none;
+}
+
+.feedbackPanelERROR {
+	color: red;
+	list-style: circle;
+	font-weight: bold;
+}
+
+.feedbackPanelINFO {
+	color: green;
+	list-style: circle;
+	font-weight: bold;
 }
 
 fieldset {
@@ -208,20 +216,135 @@ fieldset {
 	background: #fff;
 }
 
-tr.even {
-	background-color: GreenYellow
+table {
+	margin-bottom: 10px;
+	border-bottom: 1px solid #0079d6;
+	font-size: 12px;
+	font-family: arial;
+	width: 100%;
+}
+
+th {
+	background: #C3C3C3;
+	color: white;
+	font-weight: bold;
+}
+
+tr.b {
+	font-size: 12px;
+	font-family: arial;
+	background: #F5F5F5;
+}
+
+a {
+	font-size: 12px;
+	font-family: arial;
+}
+
+tr.none {
+	background: transparent;
+}
+
+tr.navigation .navigatorLabel {
+	float: left;
+}
+
+tr.navigation .navigator {
+	text-align: right;
+}
+
+tr {
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 tr.odd {
-	background-color: RoyalBlue
+	background-color: #ffebcd;
 }
 
+tr.even {
+	background-color: #fff;
+}
+
+tr td {
+	padding-left: 8px;
+	padding-right: 30px;
+}
+
+/* NAVIGATION */
 tr.navigation {
-	margin-top: 20px;
-	background-color: Yellow
+	text-align: left;
+	font-size: 0.8em;
 }
 
-tr.headers {
-	margin-top: 12px;
-	background-color: Pink
+tr.navigation td {
+	padding-right: 0px;
+}
+
+/* HEADERS */
+tr th {
+	font-weight: normal;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 8px;
+	padding-right: 24px;
+	background-color: #c1e4ff;
+	border-bottom: 1px solid #0079d6;
+	border-top: 1px solid #0079d6;
+	text-align: left;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+tr th a {
+	padding-right: 15px;
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+tr th.wicket_orderDown a {
+	color: black;
+	background-image: url(images/arrow_down.png);
+}
+
+tr th.wicket_orderUp a {
+	color: black;
+	background-image: url(images/arrow_up.png);
+}
+
+tr th.wicket_orderNone a {
+	background-image: url(images/arrow_off.png);
+}
+
+tr th a {
+	font-weight: normal;
+}
+
+/* FILTERS */
+td.filter-td {
+	font-size: 1em;
+	background-color: #c1e4ff;
+	border-bottom: 1px solid #0079d6;
+}
+
+td.filter-td input.go {
+	width: 45%;
+}
+
+td.filter-td input.clear {
+	width: 45%;
+}
+
+td.filter-td input {
+	width: 100%;
+	font-size: 0.6em;
+}
+
+td.filter-td select {
+	width: 100%;
+	font-size: 0.6em;
+}
+
+tr.section td {
+	padding-top: 0.75em;
 }

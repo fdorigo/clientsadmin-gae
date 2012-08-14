@@ -1,9 +1,11 @@
 package com.igadmin.data.utils;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Query;
@@ -23,7 +25,7 @@ public class StorageUtils
 	{
 		return new Key<Location>(Location.class, id);
 	}
-	
+
 	public static List<Location> getLocationList()
 	{
 		final DAO dao = new DAO();
@@ -55,8 +57,7 @@ public class StorageUtils
 
 		return locations.list();
 	}
-	
-	
+
 	public static List<Trainer> getTrainerListForLocation(final Long locationId, int first, int count)
 	{
 		final DAO dao = new DAO();
@@ -89,7 +90,6 @@ public class StorageUtils
 		return trainers.list();
 	}
 
-
 	public static List<Client> getClientListForTrainer(final Trainer trainer)
 	{
 		final DAO dao = new DAO();
@@ -104,6 +104,11 @@ public class StorageUtils
 		}
 
 		return clients.list();
+	}
+
+	public static List<Trainer> getTrainerList()
+	{
+		return getTrainerListForLocation(null);
 	}
 
 	public static List<Trainer> getTrainerListForLocation(final Location location)
@@ -184,7 +189,8 @@ public class StorageUtils
 	public static List<TrainingSession> getClientSessionListForDateRange(final Client client, final Date start, final Date end)
 	{
 		final DAO dao = new DAO();
-		final Query<TrainingSession> sessions = dao.ofy().query(TrainingSession.class).filter("client.id =", client.getId()).filter("client.dateTrained >=", start).filter("client.dateTrained <=", end);
+		final Query<TrainingSession> sessions = dao.ofy().query(TrainingSession.class).filter("client.id =", client.getId()).filter("client.dateTrained >=", start)
+				.filter("client.dateTrained <=", end);
 
 		if (LOG.isTraceEnabled())
 		{
@@ -210,18 +216,32 @@ public class StorageUtils
 		return null;
 	}
 
-	public static List<Client> getClientListForLocation(Long locationId, int first, int count)
+	public static List<Client> getClientListForLocation(Long locationId, SortParam sort, int first, int count)
 	{
 		final DAO dao = new DAO();
 		final Query<Client> clients;
 
-		if (locationId != null && locationId > 0)
+		if (sort != null)
 		{
-			clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
+			if (locationId != null && locationId > 0)
+			{
+				clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId));
+			}
+			else
+			{
+				clients = dao.ofy().query(Client.class);
+			}
 		}
 		else
 		{
-			clients = dao.ofy().query(Client.class).offset(first).limit(count);
+			if (locationId != null && locationId > 0)
+			{
+				clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
+			}
+			else
+			{
+				clients = dao.ofy().query(Client.class).offset(first).limit(count);
+			}
 		}
 
 		if (LOG.isTraceEnabled())
@@ -236,6 +256,54 @@ public class StorageUtils
 				{
 					LOG.trace("All locations have " + clients.count() + " clients");
 				}
+			}
+		}
+
+		List<Client> list = clients.list();
+
+		if (sort != null)
+		{
+			if (sort.getProperty().equals(Client.NAME_LAST_PROPERTY))
+			{
+				if (sort.isAscending())
+				{
+					Collections.sort(list, ComparatorFactory.LAST_NAME_ASC);
+				}
+				else
+				{
+					Collections.sort(list, ComparatorFactory.LAST_NAME_DES);
+				}
+			}
+			else if (sort.getProperty().equals(Client.NAME_FIRST_PROPERTY))
+			{
+				if (sort.isAscending())
+				{
+					Collections.sort(list, ComparatorFactory.FIRST_NAME_ASC);
+				}
+				else
+				{
+					Collections.sort(list, ComparatorFactory.FIRST_NAME_DES);
+				}
+			}
+
+			return list.subList(first, first + count);
+		}
+
+		return list;
+	}
+
+	public static List<Client> getClientList()
+	{
+		final DAO dao = new DAO();
+		final Query<Client> clients;
+
+		clients = dao.ofy().query(Client.class);
+
+		if (LOG.isTraceEnabled())
+		{
+			if (clients != null)
+			{
+				LOG.trace("All locations have " + clients.count() + " clients");
 			}
 		}
 

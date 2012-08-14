@@ -52,7 +52,7 @@ public class Client implements Serializable
 	@Indexed
 	private String				nameFirst;
 	private String				nameMiddle;
-	
+
 	@Indexed
 	private String				nameLast;
 
@@ -85,7 +85,7 @@ public class Client implements Serializable
 
 	@NotSaved
 	private String				clientDisplayName;
-	
+
 	@Id
 	private Long				id;
 
@@ -259,7 +259,7 @@ public class Client implements Serializable
 	{
 		this.locationKey = location;
 	}
- 
+
 	public String getName()
 	{
 		return this.nameFirst + " " + this.nameLast;
@@ -320,5 +320,4 @@ public class Client implements Serializable
 		this.clientDisplayName = this.nameFirst + " " + this.nameLast;
 		return this.clientDisplayName;
 	}
-
 }

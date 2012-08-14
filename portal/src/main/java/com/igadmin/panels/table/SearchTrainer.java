@@ -61,7 +61,7 @@ public class SearchTrainer extends Panel
 			{
 				// TODO Optimize this call, need just the count not the whole
 				// list of objects
-				return StorageUtils.getLocationList().size();
+				return StorageUtils.getTrainerList().size();
 			}
 
 			@Override
