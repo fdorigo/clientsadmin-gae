@@ -11,7 +11,7 @@ public class FormUtils
 {
 	public static List<SelectOption> initTrainerOptionList(final Location location)
 	{
-		final List<Trainer> trainers = StorageUtils.getTrainerListForLocation(location);
+		final List<Trainer> trainers = StorageUtils.get().getTrainerListForLocation(location.getId());
 		final List<SelectOption> options = new ArrayList<SelectOption>(trainers.size());
 		
 		for (Trainer t : trainers)
@@ -25,7 +25,7 @@ public class FormUtils
 	public static List<SelectOption> initLocationOptionList()
 	{
 		final List<SelectOption> options = new ArrayList<SelectOption>();
-		final List<Location> locations = StorageUtils.getLocationList();
+		final List<Location> locations = StorageUtils.get().getLocationList();
 		
 		for (Location l : locations)
 		{

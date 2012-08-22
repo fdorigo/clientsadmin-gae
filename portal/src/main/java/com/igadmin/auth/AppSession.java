@@ -5,7 +5,6 @@ import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
-import org.apache.wicket.request.handler.RenderPageRequestHandler.RedirectPolicy;
 
 import com.igadmin.data.DAO;
 import com.igadmin.data.Location;

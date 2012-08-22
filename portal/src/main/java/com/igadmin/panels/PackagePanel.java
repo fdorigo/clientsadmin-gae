@@ -13,7 +13,7 @@ import com.igadmin.data.Client;
 import com.igadmin.data.TrainingPackage;
 import com.igadmin.form.SelectOption;
 
-public class AddPackage extends Panel
+public class PackagePanel extends Panel
 {
 	@SuppressWarnings("unused")
 	private static final Logger	LOG					= Logger.getLogger(ClientPanel.class);
@@ -29,7 +29,7 @@ public class AddPackage extends Panel
 	private List<Client>		listOfClients		= new ArrayList<Client>();
 	//private List<Trainer>		listOfTrainers		= new ArrayList<Trainer>();
 
-	public AddPackage(String id)
+	public PackagePanel(String id)
 	{
 		super(id);
 		packageModel = new TrainingPackage();

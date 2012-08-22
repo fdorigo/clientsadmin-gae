@@ -127,10 +127,10 @@ public class TrainerTest
 		client3.setTrainerKey(new Key<Trainer>(Trainer.class, trainer.getId()));
 		dao.ofy().put(client3);
 		Assert.assertNotNull("Failed to write client3 object to DB", client3.getId());
-		List<Client> clients1 = StorageUtils.getClientListForTrainer(trainer2);
+		List<Client> clients1 = StorageUtils.get().getClientListForTrainer(trainer2.getId());
 		Assert.assertEquals("Client list has wrong length", 1, clients1.size());
 
-		List<Client> clients = StorageUtils.getClientListForTrainer(newTrainer);
+		List<Client> clients = StorageUtils.get().getClientListForTrainer(newTrainer.getId());
 		Assert.assertEquals("Client list has wrong length", 2, clients.size());
 	}
 }

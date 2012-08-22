@@ -100,7 +100,7 @@ public class TrainerPanel extends Panel
 			}
 		};
 
-		listOfLocations = StorageUtils.getLocationList();
+		listOfLocations = StorageUtils.get().getLocationList();
 
 		LOG.debug("Option list size:" + listOfLocations.size());
 

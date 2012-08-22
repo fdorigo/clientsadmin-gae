@@ -61,7 +61,7 @@ public class ClientPanel extends Panel
 			try
 			{
 				final DAO dao = new DAO();
-				final Integer clientId = Integer.parseInt(params.get("clientId").toString());
+				final Long clientId = Long.parseLong(params.get("clientId").toString());
 				clientModel = dao.getOrCreateClient(clientId);
 				selectedTrainer = dao.getOrCreateTrainer(clientModel.getTrainerKey());
 			}
@@ -97,7 +97,7 @@ public class ClientPanel extends Panel
 					break;
 				}
 			}
-			
+
 			LOG.debug("Client Slected State: " + clientModel.getAddressState());
 		}
 
@@ -111,9 +111,9 @@ public class ClientPanel extends Panel
 			protected void onSubmit()
 			{
 				final DAO dao = new DAO();
-				
+
 				final Client client = getModelObject();
-				
+
 				client.setAddressState(selectedState.getKey());
 
 				dao.ofy().put(client);
@@ -122,7 +122,6 @@ public class ClientPanel extends Panel
 		};
 
 		add(form);
-
 
 		final IModel<List<SelectOption>> stateChoiceModel = new AbstractReadOnlyModel<List<SelectOption>>()
 		{
@@ -156,7 +155,14 @@ public class ClientPanel extends Panel
 		form.add(new RequiredTextField<PhoneNumber>(Client.PHONE_PRIMARY_PROPERTY + ".number").add(jsModifier));
 		form.add(new TextField<PhoneNumber>(Client.PHONE_SECONDARY_PROPERTY + ".number").add(jsModifier));
 
-		listOfTrainers = StorageUtils.getTrainerListForLocation(location);
+		if (location != null)
+		{
+			listOfTrainers = StorageUtils.get().getTrainerListForLocation(location.getId());
+		}
+		else
+		{
+			listOfTrainers = StorageUtils.get().getTrainerList();
+		}
 
 		ChoiceRenderer<Trainer> choiceTrainerRenderer = new ChoiceRenderer<Trainer>("trainerDisplayName", "id");
 		DropDownChoice<Trainer> fieldTrainer = new DropDownChoice<Trainer>(Client.TRAINER_PROPERTY, new PropertyModel<Trainer>(this, "selectedTrainer"), listOfTrainers, choiceTrainerRenderer);

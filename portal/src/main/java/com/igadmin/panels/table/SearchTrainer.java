@@ -33,7 +33,7 @@ public class SearchTrainer extends Panel
 {
 	private static final long	serialVersionUID	= -3401769395236719002L;
 
-	public SearchTrainer(String id)
+	public SearchTrainer(final String id)
 	{
 		super(id);
 		initComponents();
@@ -41,37 +41,35 @@ public class SearchTrainer extends Panel
 
 	private void initComponents()
 	{
-		ISortableDataProvider<Trainer> dataProvider = new SortableDataProvider<Trainer>()
+		final ISortableDataProvider<Trainer> dataProvider = new SortableDataProvider<Trainer>()
 		{
 			private static final long	serialVersionUID	= 7723194267973185458L;
 
 			@Override
-			public Iterator<? extends Trainer> iterator(int first, int count)
+			public Iterator<? extends Trainer> iterator(final int first, final int count)
 			{
-				Location loc = ((AppSession) getSession()).getSessionLocation();
+				final Location loc = ((AppSession) getSession()).getSessionLocation();
 
 				if (loc != null)
-					return StorageUtils.getTrainerListForLocation(loc.getId(), first, count).iterator();
+					return StorageUtils.get().getTrainerListForLocation(loc.getId(), first, count).iterator();
 				else
-					return StorageUtils.getTrainerListForLocation(null, first, count).iterator();
+					return StorageUtils.get().getTrainerListForLocation(null, first, count).iterator();
 			}
 
 			@Override
 			public int size()
 			{
-				// TODO Optimize this call, need just the count not the whole
-				// list of objects
-				return StorageUtils.getTrainerList().size();
+				return StorageUtils.get().getTrainerListSize();
 			}
 
 			@Override
-			public IModel<Trainer> model(Trainer object)
+			public IModel<Trainer> model(final Trainer object)
 			{
 				return new ReloadingTrainerModel(object);
 			}
 		};
 
-		List<IColumn<Trainer>> columns = new ArrayList<IColumn<Trainer>>();
+		final List<IColumn<Trainer>> columns = new ArrayList<IColumn<Trainer>>();
 		columns.add(new PropertyColumn<Trainer>(new Model<String>("First Name"), "nameFirst"));
 		columns.add(new PropertyColumn<Trainer>(new Model<String>("Last Name"), "nameLast"));
 		columns.add(new PropertyColumn<Trainer>(new Model<String>("Email"), "emailAddress"));
@@ -80,28 +78,28 @@ public class SearchTrainer extends Panel
 			private static final long	serialVersionUID	= -3618555427333914107L;
 
 			@Override
-			public void populateItem(Item<ICellPopulator<Trainer>> cellItem, String componentId, IModel<Trainer> rawModel)
+			public void populateItem(final Item<ICellPopulator<Trainer>> cellItem, final String componentId, final IModel<Trainer> rawModel)
 			{
 				cellItem.add(makeProductLinkFragment(componentId, rawModel));
 			}
 		});
 
-		DefaultDataTable<Trainer> dt = new DefaultDataTable<Trainer>("searchTrainerDataTable", columns, dataProvider, 10);
+		final DefaultDataTable<Trainer> dt = new DefaultDataTable<Trainer>("searchTrainerDataTable", columns, dataProvider, 10);
 		add(dt);
 	}
-	
-	private Fragment makeProductLinkFragment(String componentId, final IModel<Trainer> rowModel)
+
+	private Fragment makeProductLinkFragment(final String componentId, final IModel<Trainer> rowModel)
 	{
-		Fragment productLinkFragment = new Fragment(componentId, "f1", SearchTrainer.this);
-		Link<Void> l = new Link<Void>("l")
+		final Fragment productLinkFragment = new Fragment(componentId, "f1", SearchTrainer.this);
+		final Link<Void> l = new Link<Void>("l")
 		{
 			private static final long	serialVersionUID	= 1L;
 
 			@Override
 			public void onClick()
 			{
-				Trainer trainer = rowModel.getObject();
-				PageParameters params = new PageParameters();
+				final Trainer trainer = rowModel.getObject();
+				final PageParameters params = new PageParameters();
 				params.add("newTabId", TabPanelIndex.TRAINER.getIndex());
 				params.add("trainerId", trainer.getId());
 				setResponsePage(HomePage.class, params);

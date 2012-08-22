@@ -1,5 +1,6 @@
 package com.igadmin.data.utils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -19,16 +20,247 @@ import com.igadmin.data.TrainingSession;
 
 public class StorageUtils
 {
-	private static final Logger	LOG	= Logger.getLogger(StorageUtils.class);
+	private static final Logger			LOG				= Logger.getLogger(StorageUtils.class);
 
-	public static Key<Location> getlocationKey(Long id)
+	private final List<Location>		locationList	= new ArrayList<Location>();
+	private final List<Trainer>			trainerList		= new ArrayList<Trainer>();
+	private final List<Client>			clientList		= new ArrayList<Client>();
+	private final DAO					dao				= new DAO();
+	private static final StorageUtils	INSTANCE		= new StorageUtils();
+
+	public static StorageUtils get()
 	{
-		return new Key<Location>(Location.class, id);
+		return INSTANCE;
 	}
 
-	public static List<Location> getLocationList()
+	public List<Location> getLocationList(int first, int count)
 	{
-		final DAO dao = new DAO();
+		return locationList.subList(first, count);
+	}
+
+	public List<Location> getLocationList()
+	{
+		return locationList;
+	}
+
+	public Integer getLocationListSize()
+	{
+		return locationList.size();
+	}
+
+	public List<Trainer> getTrainerList()
+	{
+		return trainerList;
+	}
+
+	public Integer getTrainerListSize()
+	{
+		return trainerList.size();
+	}
+
+	public List<Trainer> getTrainerListForLocation(final Long locationId)
+	{
+		final List<Trainer> list = new ArrayList<Trainer>();
+
+		if (locationId == null)
+		{
+			LOG.warn("invalid input");
+			return list;
+		}
+
+		final Key<Location> key = new Key<Location>(Location.class, locationId);
+
+		for (Trainer t : trainerList)
+		{
+			if (t.getLocationKey().equals(key))
+			{
+				list.add(t);
+			}
+		}
+
+		if (LOG.isTraceEnabled())
+		{
+			if (locationId != null)
+			{
+				LOG.trace(locationId + " has " + list.size() + " trainers");
+			}
+		}
+
+		return list;
+	}
+
+	public List<Trainer> getTrainerListForLocation(final Long locationId, int first, int count)
+	{
+		if (locationId == null)
+		{
+			return trainerList.subList(first, count);
+		}
+
+		return getTrainerListForLocation(locationId).subList(first, count);
+	}
+
+	public List<Client> getClientList()
+	{
+		return clientList;
+	}
+
+	public Integer getClientListSize()
+	{
+		return clientList.size();
+	}
+
+	public List<Client> getClientListForTrainer(final Long trainerId)
+	{
+		if (trainerId == null)
+		{
+			LOG.warn("invalid input");
+			return clientList;
+		}
+
+		final List<Client> list = new ArrayList<Client>();
+		final Key<Trainer> key = getTrainerKey(trainerId);
+
+		for (Client c : clientList)
+		{
+			if (c.getTrainerKey().equals(key))
+			{
+				list.add(c);
+			}
+		}
+
+		return list;
+	}
+
+	public List<Client> getClientListForLocation(Long locationId, SortParam sort, int first, int count)
+	{
+		final List<Client> list = new ArrayList<Client>();
+
+		if (locationId != null)
+		{
+			final Key<Location> key = getLocationKey(locationId);
+
+			for (Client c : clientList)
+			{
+				if (c.getLocationKey().equals(key))
+				{
+					list.add(c);
+				}
+			}
+		}
+		else
+		{
+			list.addAll(clientList);
+		}
+
+		if (LOG.isTraceEnabled())
+		{
+			if (list != null)
+			{
+				if (locationId != null)
+				{
+					LOG.trace(locationId + " has " + list.size() + " clients");
+				}
+				else
+				{
+					LOG.trace("All locations have " + list.size() + " clients");
+				}
+			}
+		}
+
+		if (sort == null)
+		{
+			return list;
+		}
+
+		if (sort.getProperty().equals(Client.NAME_LAST_PROPERTY))
+		{
+			if (sort.isAscending())
+			{
+				Collections.sort(list, ComparatorFactory.LAST_NAME_ASC);
+			}
+			else
+			{
+				Collections.sort(list, ComparatorFactory.LAST_NAME_DES);
+			}
+		}
+		else if (sort.getProperty().equals(Client.NAME_FIRST_PROPERTY))
+		{
+			if (sort.isAscending())
+			{
+				Collections.sort(list, ComparatorFactory.FIRST_NAME_ASC);
+			}
+			else
+			{
+				Collections.sort(list, ComparatorFactory.FIRST_NAME_DES);
+			}
+		}
+
+		return list.subList(first, first + count);
+	}
+
+	private StorageUtils()
+	{
+		updateLocationList();
+		updateTrainerList();
+		updateClientList();
+	}
+
+	public synchronized void updateTrainerList()
+	{
+		if (!trainerList.isEmpty())
+		{
+			for (Trainer t : trainerList)
+			{
+				trainerList.remove(t);
+			}
+		}
+
+		final Query<Trainer> trainers = dao.ofy().query(Trainer.class);
+
+		if (LOG.isTraceEnabled())
+		{
+			if (trainers != null)
+			{
+				LOG.trace("Number of trainers retrieved: " + trainers.count());
+			}
+		}
+
+		trainerList.addAll(trainers.list());
+	}
+
+	public synchronized void updateClientList()
+	{
+		if (!clientList.isEmpty())
+		{
+			for (Client c : clientList)
+			{
+				clientList.remove(c);
+			}
+		}
+
+		final Query<Client> clients = dao.ofy().query(Client.class);
+
+		if (LOG.isTraceEnabled())
+		{
+			if (clients != null)
+			{
+				LOG.trace("Number of clients retrieved: " + clients.count());
+			}
+		}
+
+		clientList.addAll(clients.list());
+	}
+
+	public synchronized void updateLocationList()
+	{
+		if (!locationList.isEmpty())
+		{
+			for (Location l : locationList)
+			{
+				locationList.remove(l);
+			}
+		}
+
 		final Query<Location> locations = dao.ofy().query(Location.class);
 
 		if (LOG.isTraceEnabled())
@@ -39,109 +271,29 @@ public class StorageUtils
 			}
 		}
 
-		return locations.list();
+		locationList.addAll(locations.list());
 	}
 
-	public static List<Location> getLocationList(int first, int count)
+	public Key<Location> getLocationKey(Long id)
 	{
-		final DAO dao = new DAO();
-		final Query<Location> locations = dao.ofy().query(Location.class).offset(first).limit(count);
-
-		if (LOG.isTraceEnabled())
-		{
-			if (locations != null)
-			{
-				LOG.trace("Number of locations retrieved: " + locations.count());
-			}
-		}
-
-		return locations.list();
+		return new Key<Location>(Location.class, id);
 	}
 
-	public static List<Trainer> getTrainerListForLocation(final Long locationId, int first, int count)
+	public Key<Trainer> getTrainerKey(Long id)
 	{
-		final DAO dao = new DAO();
-		final Query<Trainer> trainers;
-
-		if (locationId != null && locationId > 0)
-		{
-			trainers = dao.ofy().query(Trainer.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
-		}
-		else
-		{
-			trainers = dao.ofy().query(Trainer.class).offset(first).limit(count);
-		}
-
-		if (LOG.isTraceEnabled())
-		{
-			if (trainers != null)
-			{
-				if (locationId != null)
-				{
-					LOG.trace(locationId + " has " + trainers.count() + " trainers");
-				}
-				else
-				{
-					LOG.trace("All locations have " + trainers.count() + " trainers");
-				}
-			}
-		}
-
-		return trainers.list();
+		return new Key<Trainer>(Trainer.class, id);
 	}
 
-	public static List<Client> getClientListForTrainer(final Trainer trainer)
+	public Key<Client> getClientKey(Long id)
 	{
-		final DAO dao = new DAO();
-		final Query<Client> clients = dao.ofy().query(Client.class).filter("trainer.id =", trainer.getId());
-
-		if (LOG.isTraceEnabled())
-		{
-			if (clients != null)
-			{
-				LOG.trace(trainer.getName() + " has " + clients.count() + " clients");
-			}
-		}
-
-		return clients.list();
+		return new Key<Client>(Client.class, id);
 	}
 
-	public static List<Trainer> getTrainerList()
-	{
-		return getTrainerListForLocation(null);
-	}
-
-	public static List<Trainer> getTrainerListForLocation(final Location location)
-	{
-		final DAO dao = new DAO();
-		final Query<Trainer> trainers;
-
-		if (location != null)
-		{
-			trainers = dao.ofy().query(Trainer.class).filter("location.id =", location.getId());
-		}
-		else
-		{
-			trainers = dao.ofy().query(Trainer.class);
-		}
-
-		if (LOG.isTraceEnabled())
-		{
-			if (trainers != null)
-			{
-				if (location != null)
-				{
-					LOG.trace(location.getLocationName() + " has " + trainers.count() + " trainers");
-				}
-				else
-				{
-					LOG.trace("All locations have " + trainers.count() + " trainers");
-				}
-			}
-		}
-
-		return trainers.list();
-	}
+	// /////////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////////////////
 
 	public static List<TrainingPackage> getPackageListForClient(final Client client)
 	{
@@ -214,99 +366,5 @@ public class StorageUtils
 		}
 
 		return null;
-	}
-
-	public static List<Client> getClientListForLocation(Long locationId, SortParam sort, int first, int count)
-	{
-		final DAO dao = new DAO();
-		final Query<Client> clients;
-
-		if (sort != null)
-		{
-			if (locationId != null && locationId > 0)
-			{
-				clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId));
-			}
-			else
-			{
-				clients = dao.ofy().query(Client.class);
-			}
-		}
-		else
-		{
-			if (locationId != null && locationId > 0)
-			{
-				clients = dao.ofy().query(Client.class).filter("locationKey =", new Key<Location>(Location.class, locationId)).offset(first).limit(count);
-			}
-			else
-			{
-				clients = dao.ofy().query(Client.class).offset(first).limit(count);
-			}
-		}
-
-		if (LOG.isTraceEnabled())
-		{
-			if (clients != null)
-			{
-				if (locationId != null)
-				{
-					LOG.trace(locationId + " has " + clients.count() + " clients");
-				}
-				else
-				{
-					LOG.trace("All locations have " + clients.count() + " clients");
-				}
-			}
-		}
-
-		List<Client> list = clients.list();
-
-		if (sort != null)
-		{
-			if (sort.getProperty().equals(Client.NAME_LAST_PROPERTY))
-			{
-				if (sort.isAscending())
-				{
-					Collections.sort(list, ComparatorFactory.LAST_NAME_ASC);
-				}
-				else
-				{
-					Collections.sort(list, ComparatorFactory.LAST_NAME_DES);
-				}
-			}
-			else if (sort.getProperty().equals(Client.NAME_FIRST_PROPERTY))
-			{
-				if (sort.isAscending())
-				{
-					Collections.sort(list, ComparatorFactory.FIRST_NAME_ASC);
-				}
-				else
-				{
-					Collections.sort(list, ComparatorFactory.FIRST_NAME_DES);
-				}
-			}
-
-			return list.subList(first, first + count);
-		}
-
-		return list;
-	}
-
-	public static List<Client> getClientList()
-	{
-		final DAO dao = new DAO();
-		final Query<Client> clients;
-
-		clients = dao.ofy().query(Client.class);
-
-		if (LOG.isTraceEnabled())
-		{
-			if (clients != null)
-			{
-				LOG.trace("All locations have " + clients.count() + " clients");
-			}
-		}
-
-		return clients.list();
 	}
 }

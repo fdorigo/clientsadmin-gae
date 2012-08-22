@@ -31,7 +31,7 @@ public class SearchLocation extends Panel
 {
 	private static final long	serialVersionUID	= -3401769395236719002L;
 
-	public SearchLocation(String id)
+	public SearchLocation(final String id)
 	{
 		super(id);
 		initComponents();
@@ -39,32 +39,30 @@ public class SearchLocation extends Panel
 
 	private void initComponents()
 	{
-		ISortableDataProvider<Location> dataProvider = new SortableDataProvider<Location>()
+		final ISortableDataProvider<Location> dataProvider = new SortableDataProvider<Location>()
 		{
 			private static final long	serialVersionUID	= 7723194267973185458L;
 
 			@Override
-			public Iterator<? extends Location> iterator(int first, int count)
+			public Iterator<? extends Location> iterator(final int first, final int count)
 			{
-				return StorageUtils.getLocationList(first, count).iterator();
+				return StorageUtils.get().getLocationList(first, count).iterator();
 			}
 
 			@Override
 			public int size()
 			{
-				// TODO Optimize this call, need just the count not the whole
-				// list of objects
-				return StorageUtils.getLocationList().size();
+				return StorageUtils.get().getLocationListSize();
 			}
 
 			@Override
-			public IModel<Location> model(Location object)
+			public IModel<Location> model(final Location object)
 			{
 				return new ReloadingLocationModel(object);
 			}
 		};
 
-		List<IColumn<Location>> columns = new ArrayList<IColumn<Location>>();
+		final List<IColumn<Location>> columns = new ArrayList<IColumn<Location>>();
 		columns.add(new PropertyColumn<Location>(new Model<String>("Location Name"), "locationName"));
 		columns.add(new PropertyColumn<Location>(new Model<String>("Email"), "emailAddress"));
 		columns.add(new AbstractColumn<Location>(new Model<String>("Edit"), "edit")
@@ -72,28 +70,28 @@ public class SearchLocation extends Panel
 			private static final long	serialVersionUID	= -3618555427333914107L;
 
 			@Override
-			public void populateItem(Item<ICellPopulator<Location>> cellItem, String componentId, IModel<Location> rawModel)
+			public void populateItem(final Item<ICellPopulator<Location>> cellItem, final String componentId, final IModel<Location> rawModel)
 			{
 				cellItem.add(makeProductLinkFragment(componentId, rawModel));
 			}
 		});
 
-		DefaultDataTable<Location> dt = new DefaultDataTable<Location>("searchLocationDataTable", columns, dataProvider, 10);
+		final DefaultDataTable<Location> dt = new DefaultDataTable<Location>("searchLocationDataTable", columns, dataProvider, 10);
 		add(dt);
 	}
-	
-	private Fragment makeProductLinkFragment(String componentId, final IModel<Location> rowModel)
+
+	private Fragment makeProductLinkFragment(final String componentId, final IModel<Location> rowModel)
 	{
-		Fragment productLinkFragment = new Fragment(componentId, "f1", SearchLocation.this);
-		Link<Void> l = new Link<Void>("l")
+		final Fragment productLinkFragment = new Fragment(componentId, "f1", SearchLocation.this);
+		final Link<Void> l = new Link<Void>("l")
 		{
 			private static final long	serialVersionUID	= 1L;
 
 			@Override
 			public void onClick()
 			{
-				Location l = rowModel.getObject();
-				PageParameters params = new PageParameters();
+				final Location l = rowModel.getObject();
+				final PageParameters params = new PageParameters();
 				params.add("newTabId", TabPanelIndex.LOCATION.getIndex());
 				params.add("locationId", l.getId());
 				setResponsePage(HomePage.class, params);

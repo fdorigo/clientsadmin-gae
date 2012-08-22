@@ -23,6 +23,7 @@ public class ComparatorFactory
 															return (lastCmp != 0 ? lastCmp : e2.getNameFirst().compareTo(e1.getNameFirst()));
 														}
 													};
+													
 	static final Comparator<Client>	FIRST_NAME_ASC	= new Comparator<Client>()
 													{
 														public int compare(Client e1, Client e2)

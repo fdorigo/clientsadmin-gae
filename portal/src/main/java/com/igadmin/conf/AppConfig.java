@@ -32,8 +32,6 @@ public class AppConfig
 
 	private void loadConfiguration()
 	{
-		final StringBuilder confPath = new StringBuilder();
-
 		try
 		{
 			conf = new XMLConfiguration(System.getProperty("igadmin.properties"));
