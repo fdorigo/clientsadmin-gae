@@ -43,6 +43,7 @@ public class HomePage extends BasePage
 	private void initComponents(final PageParameters params)
 	{
 		LOG.debug("Initializing HomePage");
+		tabbedPanel = new AjaxTabbedPanel<ITab>("tabbedPanel", getTabList(params));
 		
 		if (!params.get("newTabId").isEmpty())
 		{
@@ -50,6 +51,7 @@ public class HomePage extends BasePage
 			{
 				Integer index = Integer.parseInt(params.get("newTabId").toString());
 				selectedTabIndex = index;
+				tabbedPanel.setSelectedTab(selectedTabIndex);
 				LOG.debug("Selected tab index: " + index);
 			}
 			catch (NumberFormatException e)
@@ -62,9 +64,7 @@ public class HomePage extends BasePage
 		}
 		
 
-		tabbedPanel = new AjaxTabbedPanel<ITab>("tabbedPanel", getTabList(params));
 		
-		tabbedPanel.setSelectedTab(selectedTabIndex);
 
 		add(tabbedPanel);
 

@@ -88,6 +88,41 @@ public class StorageUtils
 
 		return list;
 	}
+	
+	public List<Trainer> getTrainerListForLocation(final Long locationId, final SortParam sort)
+	{
+		List<Trainer> list = getTrainerListForLocation(locationId);
+		
+		if (sort == null)
+		{
+			return list;
+		}
+
+		if (sort.getProperty().equals(Trainer.NAME_LAST_PROPERTY))
+		{
+			if (sort.isAscending())
+			{
+				Collections.sort(list, ComparatorFactory.LAST_NAME_ASC);
+			}
+			else
+			{
+				Collections.sort(list, ComparatorFactory.LAST_NAME_DES);
+			}
+		}
+		else if (sort.getProperty().equals(Trainer.NAME_FIRST_PROPERTY))
+		{
+			if (sort.isAscending())
+			{
+				Collections.sort(list, ComparatorFactory.FIRST_NAME_ASC);
+			}
+			else
+			{
+				Collections.sort(list, ComparatorFactory.FIRST_NAME_DES);
+			}
+		}
+		
+		return list;
+	}
 
 	public List<Trainer> getTrainerListForLocation(final Long locationId, int first, int count)
 	{
@@ -131,7 +166,7 @@ public class StorageUtils
 		return list;
 	}
 
-	public List<Client> getClientListForLocation(Long locationId, SortParam sort, int first, int count)
+	public List<Client> getClientListForLocation(Long locationId, SortParam sort)
 	{
 		final List<Client> list = new ArrayList<Client>();
 
@@ -195,9 +230,17 @@ public class StorageUtils
 			}
 		}
 
-		return list.subList(first, first + count);
+		return list;
 	}
 
+	public List<Client> getClientListForLocation(Long locationId, SortParam sort, int first, int count)
+	{
+		return getClientListForLocation(locationId, sort).subList(first, first + count);
+	}
+
+	/**
+	 * Private constructor for singleton implementation.
+	 */
 	private StorageUtils()
 	{
 		updateLocationList();
@@ -287,6 +330,16 @@ public class StorageUtils
 	public Key<Client> getClientKey(Long id)
 	{
 		return new Key<Client>(Client.class, id);
+	}
+
+	public Key<TrainingPackage> getPackageKey(Long id)
+	{
+		return new Key<TrainingPackage>(TrainingPackage.class, id);
+	}
+
+	public Key<TrainingSession> getSessionKey(Long id)
+	{
+		return new Key<TrainingSession>(TrainingSession.class, id);
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////

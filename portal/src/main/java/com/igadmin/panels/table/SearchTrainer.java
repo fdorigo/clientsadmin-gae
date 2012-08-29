@@ -50,10 +50,7 @@ public class SearchTrainer extends Panel
 			{
 				final Location loc = ((AppSession) getSession()).getSessionLocation();
 
-				if (loc != null)
-					return StorageUtils.get().getTrainerListForLocation(loc.getId(), first, count).iterator();
-				else
-					return StorageUtils.get().getTrainerListForLocation(null, first, count).iterator();
+				return StorageUtils.get().getTrainerListForLocation(loc == null ? null : loc.getId(), first, count).iterator();
 			}
 
 			@Override

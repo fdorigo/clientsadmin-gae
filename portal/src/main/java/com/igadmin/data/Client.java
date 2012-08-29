@@ -16,7 +16,7 @@ import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
 @Unindexed
-public class Client implements Serializable
+public class Client implements Serializable, GymComparable
 {
 	private static final long	serialVersionUID			= 7573328143738817326L;
 

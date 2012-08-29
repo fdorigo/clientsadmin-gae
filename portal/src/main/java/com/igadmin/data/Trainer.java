@@ -15,7 +15,7 @@ import com.googlecode.objectify.annotation.Unindexed;
 
 @Entity
 @Unindexed
-public class Trainer implements Serializable
+public class Trainer implements Serializable, GymComparable
 {
 	private static final long	serialVersionUID			= -7246007345082461830L;
 
